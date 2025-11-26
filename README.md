@@ -348,7 +348,7 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más información.
 
 ## 👥 Autores
 
-- **Tu Nombre** - *Desarrollo inicial* - [@tu-usuario](https://github.com/tu-usuario)
+- **PabloMalcolm** - *Desarrollo inicial* - [@MalcolmxDd](https://github.com/MalcolmxDd)
 
 ---
 
@@ -362,9 +362,9 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más información.
 
 ## 📞 Contacto
 
-- **Email**: tu-email@ejemplo.com
-- **GitHub**: [@tu-usuario](https://github.com/tu-usuario)
-- **Twitter**: [@tu-usuario](https://twitter.com/tu-usuario)
+- **Email**: pablo.malcolm.x@gmail.com
+- **GitHub**: [@MalcolmxDd](https://github.com/MalcolmxDd)
+
 
 ---
 
