@@ -11,7 +11,7 @@ interface LoadingSpinnerProps {
 
 export default function LoadingSpinner({ 
     size = 32, 
-    color = 'hsl(var(--primary))',
+    color = 'var(--accent)',
     fullScreen = false,
     message 
 }: LoadingSpinnerProps) {
@@ -28,7 +28,7 @@ export default function LoadingSpinner({
                 left: 0,
                 right: 0,
                 bottom: 0,
-                backgroundColor: 'hsl(var(--background) / 0.9)',
+                backgroundColor: 'rgba(10, 10, 15, 0.9)',
                 backdropFilter: 'blur(4px)',
                 zIndex: 9998,
             } : {

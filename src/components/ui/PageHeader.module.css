@@ -29,11 +29,11 @@
   border-radius: 50%;
   background: none;
   border: none;
-  color: hsl(var(--foreground));
+  color: var(--text-primary);
   cursor: pointer;
   transition: background-color 0.15s;
 }
 
 .backBtn:hover {
-  background-color: hsl(var(--muted));
+  background-color: var(--bg-elevated);
 }

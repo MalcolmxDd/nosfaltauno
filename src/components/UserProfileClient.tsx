@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { MOCK_USERS, MOCK_REVIEWS } from '@/data/mocks';
 import { Star, MessageCircle } from 'lucide-react';
+import StatsGrid from '@/components/ui/StatsGrid';
 import styles from './UserProfile.module.css';
 
 interface UserProfileClientProps { userId: string; }
@@ -55,20 +56,14 @@ export default function UserProfileClient({ userId }: UserProfileClientProps) {
             </div>
 
             {/* Stats */}
-            <div className={styles.statsGrid}>
-                <div className={styles.statCard}>
-                    <div className={styles.statValue}>{user.matchesPlayed}</div>
-                    <div className={styles.statLabel}>Partidos</div>
-                </div>
-                <div className={styles.statCard}>
-                    <div className={styles.statValue}>{user.matchesHosted}</div>
-                    <div className={styles.statLabel}>Organizados</div>
-                </div>
-                <div className={styles.statCard}>
-                    <div className={styles.statValue}>{user.attendanceRate}%</div>
-                    <div className={styles.statLabel}>Asistencia</div>
-                </div>
-            </div>
+            <StatsGrid
+                stats={[
+                    { label: 'Partidos', value: user.matchesPlayed },
+                    { label: 'Organizados', value: user.matchesHosted },
+                    { label: 'Asistencia', value: `${user.attendanceRate}%` },
+                ]}
+                columns={3}
+            />
 
             {/* Badges */}
             {user.badges && user.badges.length > 0 && (
@@ -131,8 +126,8 @@ export default function UserProfileClient({ userId }: UserProfileClientProps) {
                                         <div className={styles.reviewStars}>
                                             {[...Array(5)].map((_, i) => (
                                                 <Star key={i} size={14}
-                                                    fill={i < review.rating ? 'hsl(var(--gold))' : 'transparent'}
-                                                    color={i < review.rating ? 'hsl(var(--gold))' : 'hsl(var(--muted-foreground))'}
+                                                    fill={i < review.rating ? 'currentColor' : 'transparent'}
+                                                    color={i < review.rating ? 'var(--gold)' : 'var(--text-secondary)'}
                                                 />
                                             ))}
                                         </div>

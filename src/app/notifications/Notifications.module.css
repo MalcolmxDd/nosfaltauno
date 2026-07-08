@@ -1,103 +1,63 @@
-.page {
-    padding-bottom: 6rem;
-}
-
-.header {
-    padding: 1.25rem 0 1rem;
-}
-
-.headerTitle {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.item {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-16);
-    padding: var(--space-16);
-    border-radius: var(--radius-card);
-    background: var(--card-bg);
-    border: 1px solid var(--border-card);
-    box-shadow: var(--shadow-soft);
-    transition: all 0.15s;
-    position: relative;
-}
-
-.item:hover {
-    border-color: hsl(var(--primary) / 0.3);
-    box-shadow: var(--shadow-card);
-}
+/* ===== Notifications-specific styles only ===== */
+/* Shared styles (.page, .header, .headerTitle, .list, .item, .content, .topRow, .name, .time, .preview) are in ListPage.module.css */
 
 .itemUnread {
-    background: linear-gradient(135deg, hsl(var(--primary) / 0.06), var(--card-bg));
-    border-color: hsl(var(--primary) / 0.2);
+    background: linear-gradient(135deg, var(--accent-dim), var(--bg-card));
+    border-color: var(--border-accent);
+}
+
+.itemUnread:hover {
+    border-color: var(--accent);
 }
 
 .unreadDot {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.75rem;
+    right: 0.75rem;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: hsl(var(--primary));
-    box-shadow: 0 0 6px hsl(var(--primary) / 0.5);
+    background: var(--accent);
+    box-shadow: 0 0 6px rgba(255, 107, 26, 0.5);
 }
 
 .iconWrap {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    background: hsl(var(--primary) / 0.1);
-    color: hsl(var(--primary));
+    background: var(--accent-dim);
+    color: var(--accent);
 }
 
 .iconMatch {
-    background: hsl(var(--primary) / 0.1);
-    color: hsl(var(--primary));
+    background: var(--accent-dim);
+    color: var(--accent);
 }
 
 .iconMessage {
-    background: hsl(var(--secondary) / 0.1);
-    color: hsl(var(--secondary));
+    background: rgba(255, 46, 151, 0.1);
+    color: var(--magenta);
 }
 
 .iconSystem {
-    background: hsl(var(--accent) / 0.1);
-    color: hsl(var(--accent));
-}
-
-.content {
-    flex: 1;
-    min-width: 0;
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--gold);
 }
 
 .title {
-    font-size: var(--text-sm);
+    font-size: 0.8rem;
     font-weight: 600;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.1rem;
 }
 
 .message {
-    font-size: var(--text-xs);
-    color: hsl(var(--muted-foreground));
-    line-height: 1.4;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -105,7 +65,7 @@
 }
 
 .time {
-    font-size: 10px;
-    color: hsl(var(--muted-foreground) / 0.7);
-    margin-top: 0.35rem;
+    font-size: 0.6rem;
+    color: var(--text-tertiary);
+    margin-top: 0.3rem;
 }

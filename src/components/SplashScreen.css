@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: hsl(var(--background));
+    background: var(--bg-base);
     overflow: hidden;
     opacity: 1;
     transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1), transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
@@ -36,7 +36,7 @@
 .splash-orb-1 {
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, hsl(var(--primary) / 0.18), transparent 70%);
+    background: radial-gradient(circle, rgba(255, 107, 26, 0.18), transparent 70%);
     top: -15%;
     left: -10%;
     animation: orbFloat1 14s ease-in-out infinite alternate;
@@ -45,7 +45,7 @@
 .splash-orb-2 {
     width: 450px;
     height: 450px;
-    background: radial-gradient(circle, hsl(var(--secondary) / 0.12), transparent 70%);
+    background: radial-gradient(circle, rgba(255, 46, 151, 0.12), transparent 70%);
     bottom: -20%;
     right: -10%;
     animation: orbFloat2 12s ease-in-out infinite alternate-reverse;
@@ -54,7 +54,7 @@
 .splash-orb-3 {
     width: 350px;
     height: 350px;
-    background: radial-gradient(circle, hsl(var(--gold) / 0.08), transparent 70%);
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.08), transparent 70%);
     top: 50%;
     left: 60%;
     transform: translate(-50%, -50%);
@@ -134,14 +134,14 @@
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    border: 1.5px solid hsl(var(--primary) / 0.15);
+    border: 1.5px solid rgba(255, 107, 26, 0.15);
     animation: ringPulse 3s ease-in-out infinite;
 }
 
 .logoRing2 {
     width: 210px;
     height: 210px;
-    border-color: hsl(var(--gold) / 0.08);
+    border-color: rgba(255, 215, 0, 0.08);
     animation-delay: 0.5s;
 }
 
@@ -155,11 +155,12 @@
     z-index: 2;
     width: 140px;
     height: 140px;
-    filter: drop-shadow(0 0 40px hsl(var(--primary) / 0.3));
+    filter: drop-shadow(0 0 40px rgba(255, 107, 26, 0.3));
 }
 
 /* Title */
 .splash-title {
+    font-family: var(--font-display);
     font-size: 2.8rem;
     font-weight: 900;
     text-align: center;
@@ -174,7 +175,7 @@
 
 .splash-title-word {
     display: inline-block;
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--gold)));
+    background: linear-gradient(135deg, #FF6B1A, #FFD700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -194,7 +195,7 @@
 /* Tagline */
 .splash-tagline {
     font-size: 1rem;
-    color: hsl(var(--muted-foreground));
+    color: var(--text-secondary);
     text-align: center;
     margin: 0;
     letter-spacing: 0.15em;
@@ -222,12 +223,12 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: hsl(var(--primary));
+    background: var(--accent);
     animation: dotBounce 1s ease-in-out infinite;
 }
 
-.loader-dot:nth-child(2) { animation-delay: 0.15s; background: hsl(var(--gold)); }
-.loader-dot:nth-child(3) { animation-delay: 0.3s; background: hsl(var(--primary)); }
+.loader-dot:nth-child(2) { animation-delay: 0.15s; background: var(--gold); }
+.loader-dot:nth-child(3) { animation-delay: 0.3s; background: var(--accent); }
 
 @keyframes dotBounce {
     0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
@@ -240,10 +241,10 @@
     top: 3rem;
     right: 1.5rem;
     z-index: 20;
-    background: hsl(var(--card) / 0.5);
+    background: rgba(26, 26, 40, 0.5);
     backdrop-filter: blur(8px);
-    border: 1px solid hsl(var(--border));
-    color: hsl(var(--muted-foreground));
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
     font-size: 0.75rem;
     font-weight: 600;
     padding: 0.5rem 1.2rem;
@@ -257,9 +258,9 @@
 }
 
 .skip-btn:hover {
-    border-color: hsl(var(--primary) / 0.5);
-    color: hsl(var(--primary));
-    background: hsl(var(--primary) / 0.1);
+    border-color: var(--border-accent);
+    color: var(--accent);
+    background: var(--accent-dim);
     transform: translateY(-1px);
 }
 
@@ -276,7 +277,7 @@
     transform: translateX(-50%);
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.5), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 26, 0.5), transparent);
     z-index: 10;
     opacity: 0;
     animation: fadeIn 0.8s ease-out 1.8s forwards;

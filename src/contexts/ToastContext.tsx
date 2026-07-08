@@ -121,27 +121,27 @@ function ToastItem({ toast, removeToast }: { toast: Toast; removeToast: (id: str
         switch (toast.type) {
             case 'success':
                 return {
-                    bg: 'hsl(var(--primary))',
-                    border: 'hsl(var(--primary))',
+                    bg: 'var(--accent)',
+                    border: 'var(--accent)',
                     icon: 'white',
                 };
             case 'error':
                 return {
-                    bg: 'hsl(var(--destructive))',
-                    border: 'hsl(var(--destructive))',
+                    bg: 'var(--error)',
+                    border: 'var(--error)',
                     icon: 'white',
                 };
             case 'warning':
                 return {
-                    bg: 'hsl(38, 92%, 50%)',
-                    border: 'hsl(38, 92%, 50%)',
+                    bg: 'var(--warning)',
+                    border: 'var(--warning)',
                     icon: 'white',
                 };
             default:
                 return {
-                    bg: 'hsl(var(--card))',
-                    border: 'var(--border)',
-                    icon: 'hsl(var(--primary))',
+                    bg: 'var(--bg-card)',
+                    border: 'var(--border-subtle)',
+                    icon: 'var(--accent)',
                 };
         }
     };
@@ -163,7 +163,7 @@ function ToastItem({ toast, removeToast }: { toast: Toast; removeToast: (id: str
             }}
         >
             <div style={{ color: colors.icon, display: 'flex', alignItems: 'center' }}>{getIcon()}</div>
-            <p style={{ flex: 1, color: toast.type === 'info' ? 'var(--foreground)' : 'white', fontSize: '0.875rem', margin: 0 }}>
+            <p style={{ flex: 1, color: toast.type === 'info' ? 'var(--text-primary)' : 'white', fontSize: '0.875rem', margin: 0 }}>
                 {toast.message}
             </p>
             <button
@@ -171,7 +171,7 @@ function ToastItem({ toast, removeToast }: { toast: Toast; removeToast: (id: str
                 style={{
                     background: 'none',
                     border: 'none',
-                    color: toast.type === 'info' ? 'var(--muted-foreground)' : 'white',
+                    color: toast.type === 'info' ? 'var(--text-secondary)' : 'white',
                     cursor: 'pointer',
                     padding: '0.25rem',
                     display: 'flex',

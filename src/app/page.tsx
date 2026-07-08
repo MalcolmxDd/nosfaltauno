@@ -21,22 +21,22 @@ export default function Home() {
 
           <div className={styles.floatingParticles}>
             <svg className={styles.floatParticle} width="22" height="22" viewBox="0 0 22 22">
-              <polygon points="11,2 20,7 20,17 11,21 2,17 2,7" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+              <polygon points="11,2 20,7 20,17 11,21 2,17 2,7" fill="none" stroke="#FF6B1A" strokeWidth="1" />
             </svg>
             <svg className={styles.floatParticle} width="14" height="14" viewBox="0 0 14 14">
-              <circle cx="7" cy="7" r="5" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+              <circle cx="7" cy="7" r="5" fill="none" stroke="#FFD700" strokeWidth="1" />
             </svg>
             <svg className={styles.floatParticle} width="18" height="18" viewBox="0 0 18 18">
-              <rect x="2" y="2" width="14" height="14" rx="3" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+              <rect x="2" y="2" width="14" height="14" rx="3" fill="none" stroke="#FF6B1A" strokeWidth="1" />
             </svg>
             <svg className={styles.floatParticle} width="12" height="12" viewBox="0 0 12 12">
-              <polygon points="6,1 11,4 11,9 6,11 1,9 1,4" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+              <polygon points="6,1 11,4 11,9 6,11 1,9 1,4" fill="none" stroke="#FFD700" strokeWidth="1" />
             </svg>
             <svg className={styles.floatParticle} width="8" height="8" viewBox="0 0 8 8">
-              <circle cx="4" cy="4" r="3" fill="hsl(var(--primary) / 0.15)" />
+              <circle cx="4" cy="4" r="3" fill="rgba(255, 107, 26, 0.15)" />
             </svg>
             <svg className={styles.floatParticle} width="16" height="16" viewBox="0 0 16 16">
-              <polygon points="8,1 15,4 15,12 8,15 1,12 1,4" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+              <polygon points="8,1 15,4 15,12 8,15 1,12 1,4" fill="none" stroke="#FF6B1A" strokeWidth="1" />
             </svg>
           </div>
 

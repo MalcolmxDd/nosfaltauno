@@ -93,7 +93,7 @@ export default function DiscoverPage() {
 
             <div className={styles.actions}>
                 <button onClick={() => handleSwipe('left')} className={styles.skipBtn} aria-label="No me interesa">
-                    <X size={28} color="hsl(var(--destructive))" />
+                    <X size={28} color="var(--error)" />
                 </button>
                 <button onClick={() => handleSwipe('right')} className={styles.likeBtn} aria-label="Me interesa">
                     <Heart size={28} color="white" />

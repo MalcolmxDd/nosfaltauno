@@ -13,7 +13,7 @@ export interface UserMatchInput {
     imageUrl?: string;
 }
 
-function getStoredMatches(): any[] {
+export function getStoredMatches(): any[] {
     if (typeof window === 'undefined') return [];
     try {
         return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');

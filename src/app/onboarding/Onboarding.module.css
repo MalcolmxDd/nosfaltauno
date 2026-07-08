@@ -22,7 +22,7 @@
 
 .progressFill {
     height: 100%;
-    background: linear-gradient(90deg, hsl(var(--primary)), hsl(142 70% 45%));
+    background: linear-gradient(90deg, var(--accent), #FF8C42);
     border-radius: 2px;
     transition: width 0.4s;
 }
@@ -31,7 +31,7 @@
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)));
+    background: linear-gradient(135deg, var(--text-primary), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -40,7 +40,7 @@
 
 .stepSubtitle {
     font-size: var(--text-sm);
-    color: hsl(var(--muted-foreground));
+    color: var(--text-secondary);
 }
 
 .content {
@@ -61,12 +61,12 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    color: hsl(var(--foreground));
+    color: var(--text-primary);
     margin-bottom: 0.35rem;
 }
 
 .labelIcon {
-    color: hsl(var(--primary));
+    color: var(--accent);
     flex-shrink: 0;
 }
 
@@ -85,8 +85,8 @@
     padding: var(--space-16);
     border-radius: var(--radius-card);
     border: 2px solid var(--border-card);
-    background: var(--card-bg);
-    color: hsl(var(--foreground));
+    background: var(--bg-card);
+    color: var(--text-primary);
     cursor: pointer;
     transition: all 0.15s;
     text-align: center;
@@ -95,13 +95,13 @@
 }
 
 .option:hover {
-    border-color: hsl(var(--primary) / 0.4);
+    border-color: var(--border-accent);
 }
 
 .optionSelected {
-    border-color: hsl(var(--primary));
-    background: hsl(var(--primary) / 0.1);
-    color: hsl(var(--primary));
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    color: var(--accent);
     font-weight: 700;
 }
 
@@ -109,8 +109,8 @@
     padding: var(--space-16);
     border-radius: var(--radius-card);
     border: 2px solid var(--border-card);
-    background: var(--card-bg);
-    color: hsl(var(--foreground));
+    background: var(--bg-card);
+    color: var(--text-primary);
     cursor: pointer;
     transition: all 0.15s;
     text-align: left;
@@ -119,13 +119,13 @@
 }
 
 .optionRow:hover {
-    border-color: hsl(var(--primary) / 0.4);
+    border-color: var(--border-accent);
 }
 
 .optionRowSelected {
-    border-color: hsl(var(--primary));
-    background: hsl(var(--primary) / 0.1);
-    color: hsl(var(--primary));
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    color: var(--accent);
     font-weight: 700;
 }
 
@@ -137,10 +137,10 @@
 
 .pill {
     padding: 0.5rem 1rem;
-    border-radius: 9999px;
+    border-radius: var(--radius-pill);
     border: 2px solid var(--border-card);
-    background: var(--card-bg);
-    color: hsl(var(--foreground));
+    background: var(--bg-card);
+    color: var(--text-primary);
     cursor: pointer;
     transition: all 0.15s;
     font-size: var(--text-sm);
@@ -148,12 +148,12 @@
 }
 
 .pill:hover {
-    border-color: hsl(var(--primary) / 0.4);
+    border-color: var(--border-accent);
 }
 
 .pillSelected {
-    border-color: hsl(var(--primary));
-    background: hsl(var(--primary));
+    border-color: var(--accent);
+    background: var(--accent);
     color: #fff;
     font-weight: 700;
 }
@@ -170,7 +170,7 @@
     border: 1px solid var(--border-card);
     border-radius: var(--radius-card);
     background: transparent;
-    color: hsl(var(--foreground));
+    color: var(--text-primary);
     font-size: var(--text-sm);
     font-weight: 600;
     cursor: pointer;
@@ -178,8 +178,8 @@
 }
 
 .backBtn:hover {
-    background: var(--card-bg);
-    border-color: hsl(var(--primary) / 0.4);
+    background: var(--bg-card);
+    border-color: var(--border-accent);
 }
 
 .nextBtn {
@@ -187,13 +187,13 @@
     height: 3rem;
     border: none;
     border-radius: var(--radius-btn);
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(142 70% 30%));
+    background: var(--grad-cta);
     color: #fff;
     font-size: var(--text-sm);
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-accent-glow);
 }
 
 .nextBtn:hover {
@@ -217,7 +217,7 @@
     width: 64px;
     height: 64px;
     margin: 0 auto 1rem;
-    color: hsl(var(--primary));
+    color: var(--accent);
 }
 
 .completeTitle {
@@ -228,6 +228,6 @@
 
 .completeDesc {
     font-size: var(--text-sm);
-    color: hsl(var(--muted-foreground));
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
 }

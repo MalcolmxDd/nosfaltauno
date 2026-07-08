@@ -36,14 +36,33 @@ export default function MatchDetailsClient({ matchId }: MatchDetailsClientProps)
 
     return (
         <div className="container pb-24">
-            {/* Image */}
-            <div className="mb-6">
+            {/* Image — hero banner con overlay */}
+            <div style={{
+                position: 'relative',
+                borderRadius: 'var(--radius-card)',
+                overflow: 'hidden',
+                marginBottom: '1.5rem',
+                boxShadow: 'var(--shadow-elevated)'
+            }}>
                 <img
                     src={match.fieldInfo.image}
                     alt="Cancha"
-                    className="w-full rounded-md"
-                    style={{ height: '200px', objectFit: 'cover' }}
+                    style={{
+                        width: '100%',
+                        height: '220px',
+                        objectFit: 'cover',
+                        display: 'block'
+                    }}
                 />
+                <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: '60%',
+                    background: 'linear-gradient(transparent, rgba(10,10,15,0.85))',
+                    pointerEvents: 'none'
+                }} />
             </div>
 
             {/* Tabs */}
@@ -90,9 +109,23 @@ export default function MatchDetailsClient({ matchId }: MatchDetailsClientProps)
                 players={match.confirmedPlayers}
             />
 
-            {/* Action Buttons */}
+            {/* Action Buttons — glassmorphic bottom bar */}
             {!isJoined && (
-                <div className="fixed bottom-0 left-0 right-0 flex items-center justify-center p-4 bg-background border-t">
+                <div style={{
+                    position: 'fixed',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '1rem',
+                    background: 'rgba(10,10,15,0.8)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    borderTop: '1px solid rgba(255,255,255,0.05)',
+                    zIndex: 40
+                }}>
                     <button
                         className="btn btn-primary w-full"
                         onClick={() => {
@@ -106,10 +139,25 @@ export default function MatchDetailsClient({ matchId }: MatchDetailsClientProps)
             )}
 
             {isJoined && match.status === 'past' && (
-                <div className="fixed bottom-0 left-0 right-0 flex items-center justify-center p-4 bg-background border-t" style={{ gap: '1rem' }}>
+                <div style={{
+                    position: 'fixed',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '1rem',
+                    gap: '1rem',
+                    background: 'rgba(10,10,15,0.8)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    borderTop: '1px solid rgba(255,255,255,0.05)',
+                    zIndex: 40
+                }}>
                     <button
                         className="btn btn-primary w-full"
-                        style={{ backgroundColor: 'hsl(var(--secondary))' }}
+                        style={{ backgroundColor: 'var(--magenta)' }}
                         onClick={() => setIsRateModalOpen(true)}
                     >
                         Finalizar y Calificar

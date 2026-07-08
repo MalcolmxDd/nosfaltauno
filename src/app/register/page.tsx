@@ -6,8 +6,12 @@ import { FormEvent, useState } from 'react';
 import { useToast } from '@/contexts/ToastContext';
 import Logo from '@/components/Logo';
 import SocialButton from '@/components/SocialButton';
+import { User, Mail, Lock, UserPlus, AlertCircle, Eye, EyeOff } from 'lucide-react';
+
+const ACCENT = '#FF6B1A';
+const GOLD = '#FFD700';
+
 import styles from '../login/Login.module.css';
-import { User, Mail, Lock, UserPlus, AlertCircle } from 'lucide-react';
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -17,6 +21,7 @@ export default function RegisterPage() {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string }>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const validate = () => {
         const newErrors: { name?: string; email?: string; password?: string } = {};
@@ -60,16 +65,16 @@ export default function RegisterPage() {
 
             <div className={styles.particles}>
                 <svg className={styles.particle} width="20" height="20" viewBox="0 0 20 20">
-                    <polygon points="10,2 18,7 18,15 10,18 2,15 2,7" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                    <polygon points="10,2 18,7 18,15 10,18 2,15 2,7" fill="none" stroke={ACCENT} strokeWidth="1" />
                 </svg>
                 <svg className={styles.particle} width="12" height="12" viewBox="0 0 12 12">
-                    <circle cx="6" cy="6" r="4" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+                    <circle cx="6" cy="6" r="4" fill="none" stroke={GOLD} strokeWidth="1" />
                 </svg>
                 <svg className={styles.particle} width="16" height="16" viewBox="0 0 16 16">
-                    <rect x="2" y="2" width="12" height="12" rx="3" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                    <rect x="2" y="2" width="12" height="12" rx="3" fill="none" stroke={ACCENT} strokeWidth="1" />
                 </svg>
                 <svg className={styles.particle} width="10" height="10" viewBox="0 0 10 10">
-                    <polygon points="5,1 9,4 9,8 5,9 1,8 1,4" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+                    <polygon points="5,1 9,4 9,8 5,9 1,8 1,4" fill="none" stroke={GOLD} strokeWidth="1" />
                 </svg>
             </div>
 
@@ -147,11 +152,20 @@ export default function RegisterPage() {
                         <div className={`${styles.inputWrap} ${errors.password ? styles.inputWrapError : ''}`}>
                             <div className={styles.inputIcon}><Lock size={16} /></div>
                             <input
-                                type="password" id="password" value={password}
+                                type={showPassword ? 'text' : 'password'} id="password" value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="••••••••"
                                 className={styles.input}
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className={styles.passwordToggle}
+                                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                                tabIndex={-1}
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
                         {errors.password && (
                             <span className={styles.error}><AlertCircle size={11} /> {errors.password}</span>

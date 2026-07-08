@@ -1,6 +1,6 @@
 .tabBar {
   display: flex;
-  border-bottom: 2px solid hsl(var(--border));
+  border-bottom: 2px solid var(--border-subtle);
   margin-bottom: 1.25rem;
   gap: 0;
 }
@@ -10,7 +10,7 @@
   padding: 0.75rem 1rem;
   border: none;
   background: none;
-  color: hsl(var(--muted-foreground));
+  color: var(--text-secondary);
   font: inherit;
   font-size: 0.875rem;
   font-weight: 500;
@@ -21,11 +21,11 @@
 }
 
 .tab:hover {
-  color: hsl(var(--foreground));
+  color: var(--text-primary);
 }
 
 .tabActive {
-  color: hsl(var(--primary));
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -36,7 +36,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background-color: var(--color-primary);
+  background-color: var(--accent);
   border-radius: 2px 2px 0 0;
 }
 

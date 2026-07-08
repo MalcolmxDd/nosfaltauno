@@ -5,10 +5,10 @@ interface LoadingSkeletonProps {
 
 export default function LoadingSkeleton({ variant = 'text', lines = 3 }: LoadingSkeletonProps) {
     const shimmerStyle: React.CSSProperties = {
-        backgroundColor: 'hsl(var(--card))',
-        borderRadius: 'var(--radius)',
+        backgroundColor: 'var(--bg-card)',
+        borderRadius: 'var(--radius-md)',
         animation: 'shimmer 1.5s ease-in-out infinite',
-        backgroundImage: 'linear-gradient(90deg, hsl(var(--card)) 25%, hsl(var(--muted)) 50%, hsl(var(--card)) 75%)',
+        backgroundImage: 'linear-gradient(90deg, var(--bg-card) 25%, var(--bg-elevated) 50%, var(--bg-card) 75%)',
         backgroundSize: '200% 100%',
     };
 

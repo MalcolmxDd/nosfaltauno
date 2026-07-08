@@ -16,17 +16,17 @@ export default function MatchCard({ match }: { match: { id: string; title: strin
                 style={{
                     borderRadius: 'var(--radius)',
                     overflow: 'hidden',
-                    border: '1px solid hsl(var(--border))',
-                    background: 'hsl(var(--card))',
+                    border: '1px solid var(--border-card)',
+                    background: 'var(--bg-card)',
                     transition: 'all 0.2s',
                 }}
                 onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'hsl(var(--primary) / 0.4)';
-                    e.currentTarget.style.boxShadow = '0 8px 25px hsl(var(--primary-glow))';
+                    e.currentTarget.style.borderColor = 'var(--border-accent)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(255, 107, 26, 0.2)';
                     e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'hsl(var(--border))';
+                    e.currentTarget.style.borderColor = 'var(--border-card)';
                     e.currentTarget.style.boxShadow = 'none';
                     e.currentTarget.style.transform = 'none';
                 }}
@@ -58,8 +58,8 @@ export default function MatchCard({ match }: { match: { id: string; title: strin
                             boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
                             color: '#fff',
                             ...(match.price === 'Gratis'
-                                ? { background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(142 70% 30%))' }
-                                : { background: 'linear-gradient(135deg, hsl(var(--gold)), hsl(42 90% 45%))' }),
+                                ? { background: 'var(--grad-cta)' }
+                                : { background: 'var(--grad-gold)' }),
                         }}
                     >
                         {match.price}
@@ -73,9 +73,9 @@ export default function MatchCard({ match }: { match: { id: string; title: strin
                                 fontSize: 'var(--text-xs)', fontWeight: 500,
                                 padding: '4px 12px',
                                 borderRadius: '9999px',
-                                background: 'hsl(0 0% 100% / 0.15)',
+                                background: 'rgba(255, 255, 255, 0.15)',
                                 color: '#fff',
-                                border: '1px solid hsl(0 0% 100% / 0.2)',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
                                 backdropFilter: 'blur(4px)',
                             }}
                         >
@@ -101,17 +101,17 @@ export default function MatchCard({ match }: { match: { id: string; title: strin
                 <div style={{ padding: '16px' }}>
                     {/* Date & Level */}
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
-                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px', background: 'hsl(var(--background))', borderRadius: 'calc(var(--radius) * 0.6)', padding: '10px 10px' }}>
-                            <Calendar size={16} style={{ color: 'hsl(var(--primary))', flexShrink: 0 }} />
+                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px',                            background: 'var(--bg-elevated)', borderRadius: 'var(--radius-md)', padding: '10px 10px' }}>
+                            <Calendar size={16} style={{ color: 'var(--accent)', flexShrink: 0 }} />
                             <div>
-                                <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'hsl(var(--muted-foreground))' }}>Fecha</span>
+                                <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>Fecha</span>
                                 <p style={{ fontSize: 'var(--text-sm)', fontWeight: 500, lineHeight: 1.3, margin: 0 }}>{match.date}</p>
                             </div>
                         </div>
-                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px', background: 'hsl(var(--background))', borderRadius: 'calc(var(--radius) * 0.6)', padding: '10px 10px' }}>
-                            <Goal size={16} style={{ color: 'hsl(var(--secondary))', flexShrink: 0 }} />
+                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px',                            background: 'var(--bg-elevated)', borderRadius: 'var(--radius-md)', padding: '10px 10px' }}>
+                            <Goal size={16} style={{ color: 'var(--magenta)', flexShrink: 0 }} />
                             <div>
-                                <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'hsl(var(--muted-foreground))' }}>Nivel</span>
+                                <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>Nivel</span>
                                 <p style={{ fontSize: 'var(--text-sm)', fontWeight: 500, lineHeight: 1.3, margin: 0 }}>{match.level}</p>
                             </div>
                         </div>
@@ -120,26 +120,26 @@ export default function MatchCard({ match }: { match: { id: string; title: strin
                     {/* Players progress bar */}
                     <div style={{ marginBottom: '12px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                            <span style={{ fontSize: 'var(--text-xs)', color: 'hsl(var(--muted-foreground))' }}>Jugadores</span>
+                            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)' }}>Jugadores</span>
                             <span style={{
                                 fontSize: 'var(--text-xs)', fontWeight: 600,
-                                color: fillPercent >= 80 ? 'hsl(var(--primary))' : (fillPercent >= 50 ? 'hsl(var(--gold))' : 'hsl(var(--destructive))')
+                                color: fillPercent >= 80 ? 'var(--accent)' : (fillPercent >= 50 ? 'var(--gold)' : 'var(--error)')
                             }}>
                                 {match.playersTotal - match.playersNeeded}/{match.playersTotal}
                             </span>
                         </div>
-                        <div style={{ height: '6px', borderRadius: '3px', background: 'hsl(var(--background))', overflow: 'hidden' }}>
+                        <div style={{ height: '6px', borderRadius: '3px', background: 'var(--bg-elevated)', overflow: 'hidden' }}>
                             <div
                                 style={{
                                     height: '100%', borderRadius: '3px',
                                     width: `${fillPercent}%`,
-                                    background: 'linear-gradient(90deg, hsl(var(--primary)), hsl(142 70% 45%))',
+                                    background: 'linear-gradient(90deg, var(--accent), #FF8C42)',
                                     transition: 'width 0.5s',
                                 }}
                             />
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
-                            <span style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: 'hsl(var(--primary))' }}>
+                            <span style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--accent)' }}>
                                 Faltan {match.playersNeeded}
                             </span>
                             {match.needsGoalkeeper && (
@@ -147,9 +147,9 @@ export default function MatchCard({ match }: { match: { id: string; title: strin
                                     style={{
                                         fontSize: '10px', fontWeight: 600,
                                         padding: '2px 8px', borderRadius: '9999px',
-                                        background: 'hsl(var(--accent) / 0.15)',
-                                        color: 'hsl(var(--accent))',
-                                        border: '1px solid hsl(var(--accent) / 0.2)',
+                                        background: 'rgba(255, 107, 26, 0.15)',
+                                        color: 'var(--accent)',
+                                        border: '1px solid var(--border-accent)',
                                     }}
                                 >
                                     Busca arquero
@@ -159,14 +159,14 @@ export default function MatchCard({ match }: { match: { id: string; title: strin
                     </div>
 
                     {/* Host + confirmed players */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '4px', borderTop: '1px solid hsl(var(--border))' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '4px', borderTop: '1px solid var(--border-subtle)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <img
                                 src={match.host.avatar}
                                 alt={match.host.name}
                                 style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }}
                             />
-                            <span style={{ fontSize: 'var(--text-xs)', color: 'hsl(var(--muted-foreground))', whiteSpace: 'nowrap' }}>{match.host.name}</span>
+                            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>{match.host.name}</span>
                         </div>
                         {match.confirmedPlayers && match.confirmedPlayers.length > 0 && (
                             <div style={{ display: 'flex' }}>
@@ -179,7 +179,7 @@ export default function MatchCard({ match }: { match: { id: string; title: strin
                                             width: '24px', height: '24px',
                                             borderRadius: '50%',
                                             objectFit: 'cover',
-                                            border: '2px solid hsl(var(--card))',
+                                            border: '2px solid var(--bg-card)',
                                             marginLeft: i > 0 ? '-8px' : '0',
                                             position: 'relative',
                                             zIndex: 4 - i,

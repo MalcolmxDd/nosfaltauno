@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 import { useToast } from '@/contexts/ToastContext';
-import styles from './ForgotPassword.module.css';
 import { Mail, ArrowLeft, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import styles from './ForgotPassword.module.css';
+
+const ACCENT = '#FF6B1A';
+const GOLD = '#FFD700';
 
 export default function ForgotPasswordPage() {
     const { success, error } = useToast();
@@ -45,16 +48,16 @@ export default function ForgotPasswordPage() {
 
             <div className={styles.particles}>
                 <svg className={styles.particle} width="20" height="20" viewBox="0 0 20 20">
-                    <polygon points="10,2 18,7 18,15 10,18 2,15 2,7" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                    <polygon points="10,2 18,7 18,15 10,18 2,15 2,7" fill="none" stroke={ACCENT} strokeWidth="1" />
                 </svg>
                 <svg className={styles.particle} width="12" height="12" viewBox="0 0 12 12">
-                    <circle cx="6" cy="6" r="4" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+                    <circle cx="6" cy="6" r="4" fill="none" stroke={GOLD} strokeWidth="1" />
                 </svg>
                 <svg className={styles.particle} width="16" height="16" viewBox="0 0 16 16">
-                    <rect x="2" y="2" width="12" height="12" rx="3" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                    <rect x="2" y="2" width="12" height="12" rx="3" fill="none" stroke={ACCENT} strokeWidth="1" />
                 </svg>
                 <svg className={styles.particle} width="10" height="10" viewBox="0 0 10 10">
-                    <polygon points="5,1 9,4 9,8 5,9 1,8 1,4" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+                    <polygon points="5,1 9,4 9,8 5,9 1,8 1,4" fill="none" stroke={GOLD} strokeWidth="1" />
                 </svg>
             </div>
 

@@ -1,46 +1,5 @@
-.page {
-    padding-bottom: 6rem;
-}
-
-.header {
-    padding: 1.25rem 0 1rem;
-}
-
-.headerTitle {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-16);
-    padding: var(--space-16);
-    border-radius: var(--radius-card);
-    background: var(--card-bg);
-    border: 1px solid var(--border-card);
-    box-shadow: var(--shadow-soft);
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.15s;
-}
-
-.item:hover {
-    border-color: hsl(var(--primary) / 0.3);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-card);
-}
+/* ===== Messages-specific styles only ===== */
+/* Shared styles (.page, .header, .headerTitle, .list, .item, .content, .topRow, .name, .time, .preview) are in ListPage.module.css */
 
 .avatarWrap {
     position: relative;
@@ -48,63 +7,35 @@
 }
 
 .avatar {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .onlineDot {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 12px;
-    height: 12px;
+    bottom: 1px;
+    right: 1px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: hsl(var(--primary));
-    border: 2px solid var(--card-bg);
+    background: var(--accent);
+    border: 2px solid var(--bg-base);
+    box-shadow: 0 0 6px rgba(255, 107, 26, 0.4);
 }
 
 .teamAvatar {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)));
+    background: linear-gradient(135deg, var(--magenta), var(--accent));
     color: #fff;
     font-weight: 800;
-    font-size: var(--text-sm);
-}
-
-.content {
-    flex: 1;
-    min-width: 0;
-}
-
-.topRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.15rem;
-}
-
-.name {
-    font-size: var(--text-sm);
-    font-weight: 600;
-}
-
-.time {
-    font-size: 10px;
-    color: hsl(var(--muted-foreground));
+    font-size: 0.75rem;
     flex-shrink: 0;
-}
-
-.preview {
-    font-size: var(--text-xs);
-    color: hsl(var(--muted-foreground));
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
