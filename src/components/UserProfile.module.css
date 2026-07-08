@@ -1,0 +1,287 @@
+.page {
+    padding-bottom: 6rem;
+}
+
+.bannerWrap {
+    position: relative;
+    width: 100%;
+    margin-bottom: 3.5rem;
+}
+
+.bannerInner {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border-radius: 0 0 var(--radius) var(--radius);
+    overflow: hidden;
+}
+
+.bannerBg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bannerOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.1) 0%, hsl(222 47% 11% / 0.5) 50%, hsl(var(--background)) 100%);
+}
+
+.avatarWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: -2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid hsl(var(--background));
+    box-shadow: 0 4px 20px hsl(0 0% 0% / 0.3);
+}
+
+.profileInfo {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.profileName {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 0.15rem;
+}
+
+.profileMeta {
+    font-size: var(--text-sm);
+    color: hsl(var(--muted-foreground));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.starIcon {
+    color: hsl(var(--gold));
+}
+
+.actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.followBtn {
+    min-width: 120px;
+    height: 2.75rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+}
+
+.followBtnPrimary {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(142 70% 30%));
+    color: #fff;
+    box-shadow: 0 4px 12px hsl(var(--primary-glow));
+}
+
+.followBtnPrimary:hover {
+    transform: translateY(-1px);
+}
+
+.followBtnGhost {
+    background: transparent;
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+}
+
+.followBtnGhost:hover {
+    border-color: hsl(var(--primary) / 0.4);
+}
+
+.messageBtn {
+    height: 2.75rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid hsl(var(--border));
+    background: transparent;
+    color: hsl(var(--foreground));
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 1rem;
+    text-decoration: none;
+}
+
+.messageBtn:hover {
+    border-color: hsl(var(--primary) / 0.4);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.statCard {
+    background: linear-gradient(135deg, var(--card-bg), var(--card-elevated));
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-input);
+    padding: var(--space-12) var(--space-8);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+
+.statCard::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), transparent);
+}
+
+.statValue {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+    line-height: 1.1;
+}
+
+.statLabel {
+    font-size: var(--text-caption);
+    color: var(--text-secondary);
+    margin-top: 0.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+}
+
+.section {
+    margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.badgeGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.badge {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: 2rem;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.12), hsl(var(--primary) / 0.05));
+    color: hsl(var(--primary));
+    border: 1px solid hsl(var(--primary) / 0.15);
+}
+
+.bioCard {
+    background: var(--card-bg);
+    border-radius: var(--radius-card);
+    padding: var(--space-16) var(--space-20);
+    border: 1px solid var(--border-card);
+    box-shadow: var(--shadow-soft);
+}
+
+.bioText {
+    font-size: var(--text-sm);
+    color: hsl(var(--muted-foreground));
+    line-height: 1.7;
+}
+
+.prefSection {
+    margin-bottom: 1.5rem;
+}
+
+.prefLabel {
+    font-size: var(--text-sm);
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 0.5rem;
+}
+
+.pillGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pill {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 9999px;
+    padding: 0.3rem 0.85rem;
+}
+
+/* Reviews */
+.reviewCard {
+    background: var(--card-bg);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-card);
+    padding: var(--space-16);
+    margin-bottom: 0.75rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.reviewHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.reviewAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.reviewUser {
+    flex: 1;
+}
+
+.reviewName {
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+.reviewStars {
+    display: flex;
+    gap: 1px;
+}
+
+.reviewDate {
+    font-size: var(--text-xs);
+    color: hsl(var(--muted-foreground));
+}
+
+.reviewComment {
+    font-size: var(--text-sm);
+    color: hsl(var(--muted-foreground));
+}

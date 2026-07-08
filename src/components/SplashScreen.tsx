@@ -9,16 +9,13 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
     const [fadeOut, setFadeOut] = useState(false);
 
     useEffect(() => {
-        // Show splash for 2.5 seconds
         const timer = setTimeout(() => {
             setFadeOut(true);
-            // Wait for fade out animation to complete
             setTimeout(() => {
                 setIsVisible(false);
                 onComplete();
-            }, 600);
-        }, 2500);
-
+            }, 800);
+        }, 3000);
         return () => clearTimeout(timer);
     }, [onComplete]);
 
@@ -26,61 +23,61 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
 
     return (
         <div className={`splash-screen ${fadeOut ? 'fade-out' : ''}`}>
-            {/* Animated Background */}
+            <button className="skip-btn" onClick={() => { setFadeOut(true); setTimeout(() => { setIsVisible(false); onComplete(); }, 800); }}>
+                Saltar
+            </button>
+
             <div className="splash-bg">
-                <div className="splash-gradient-1"></div>
-                <div className="splash-gradient-2"></div>
-                <div className="splash-gradient-3"></div>
+                <div className="splash-orb splash-orb-1" />
+                <div className="splash-orb splash-orb-2" />
+                <div className="splash-orb splash-orb-3" />
             </div>
 
-            {/* Soccer Field Lines Animation */}
-            <div className="field-lines">
-                <div className="field-line field-line-1"></div>
-                <div className="field-line field-line-2"></div>
-                <div className="field-line field-line-3"></div>
-                <div className="field-circle"></div>
+            {/* Floating geometric particles */}
+            <div className="particles">
+                <svg className="particle particle-1" width="24" height="24" viewBox="0 0 24 24">
+                    <polygon points="12,2 22,8.5 22,21.5 2,21.5 2,8.5" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                </svg>
+                <svg className="particle particle-2" width="16" height="16" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="6" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+                </svg>
+                <svg className="particle particle-3" width="20" height="20" viewBox="0 0 20 20">
+                    <polygon points="10,2 18,7 16,16 4,16 2,7" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                </svg>
+                <svg className="particle particle-4" width="14" height="14" viewBox="0 0 14 14">
+                    <rect x="1" y="1" width="12" height="12" rx="3" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+                </svg>
+                <svg className="particle particle-5" width="10" height="10" viewBox="0 0 10 10">
+                    <circle cx="5" cy="5" r="4" fill="hsl(var(--primary) / 0.15)" />
+                </svg>
+                <svg className="particle particle-6" width="18" height="18" viewBox="0 0 18 18">
+                    <polygon points="9,1 17,5 17,13 9,17 1,13 1,5" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                </svg>
             </div>
 
-            {/* Content */}
             <div className="splash-content">
-                {/* Logo with Animation */}
-                <div className="splash-logo-container">
-                    <div className="splash-logo-glow"></div>
+                <div className="logoWrap">
+                    <div className="logoRing" />
+                    <div className={`logoRing ${'logoRing2'}`} />
                     <Logo className="splash-logo" />
                 </div>
 
-                {/* App Name */}
                 <h1 className="splash-title">
                     <span className="splash-title-word">Nos</span>
                     <span className="splash-title-word">Falta</span>
                     <span className="splash-title-word">Uno</span>
                 </h1>
 
-                {/* Tagline */}
                 <p className="splash-tagline">Encuentra tu partido ideal</p>
 
-                {/* Loading Animation */}
                 <div className="splash-loader">
-                    <div className="loader-ball"></div>
-                    <div className="loader-ball"></div>
-                    <div className="loader-ball"></div>
+                    <div className="loader-dot" />
+                    <div className="loader-dot" />
+                    <div className="loader-dot" />
                 </div>
             </div>
 
-            {/* Particles Effect */}
-            <div className="splash-particles">
-                {[...Array(20)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="particle"
-                        style={{
-                            left: `${Math.random() * 100}%`,
-                            animationDelay: `${Math.random() * 2}s`,
-                            animationDuration: `${2 + Math.random() * 3}s`
-                        }}
-                    ></div>
-                ))}
-            </div>
+            <div className="splash-bottom" />
         </div>
     );
 }

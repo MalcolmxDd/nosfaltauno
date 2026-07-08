@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Nos Falta Uno",
   description: "Encuentra tu partido ideal.",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export const viewport: Viewport = {
@@ -24,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
+        <a href="#main-content" className="skip-link">Saltar al contenido</a>
         <ClientLayout>
           {children}
         </ClientLayout>

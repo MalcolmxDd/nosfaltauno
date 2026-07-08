@@ -1,0 +1,188 @@
+.page {
+    padding-bottom: 2rem;
+}
+
+.hero {
+    position: relative;
+    height: 250px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.heroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.heroOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, hsl(0 0% 0% / 0.8), transparent);
+    color: #fff;
+}
+
+.heroTitle {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+}
+
+.heroAddress {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--text-sm);
+    opacity: 0.85;
+}
+
+.content {
+    padding: 1.5rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ratingRow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.ratingBadge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.5rem;
+    background: hsl(var(--primary));
+    color: #fff;
+    font-size: var(--text-sm);
+}
+
+.ratingCount {
+    font-size: var(--text-sm);
+    color: hsl(var(--muted-foreground));
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.amenities {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.amenity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    background: var(--card-bg);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-16);
+}
+
+.amenityIcon {
+    color: hsl(var(--primary));
+    flex-shrink: 0;
+}
+
+.amenityLabel {
+    font-size: var(--text-sm);
+}
+
+.desc {
+    font-size: var(--text-sm);
+    color: hsl(var(--muted-foreground));
+    line-height: 1.7;
+}
+
+.contactList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.contactIcon {
+    color: hsl(var(--muted-foreground));
+    flex-shrink: 0;
+}
+
+.contactText {
+    font-size: var(--text-sm);
+}
+
+.mapPlaceholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-card);
+    color: var(--text-tertiary);
+    font-size: var(--text-sm);
+}
+
+.reviewList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.reviewCard {
+    background: var(--card-bg);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-16);
+}
+
+.reviewTop {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.reviewUser {
+    font-weight: 600;
+    font-size: var(--text-sm);
+}
+
+.reviewDate {
+    font-size: var(--text-xs);
+    color: hsl(var(--muted-foreground));
+}
+
+.reviewStars {
+    display: flex;
+    gap: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.reviewComment {
+    font-size: var(--text-sm);
+    color: hsl(var(--muted-foreground));
+}

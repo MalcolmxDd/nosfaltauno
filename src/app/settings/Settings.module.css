@@ -1,0 +1,234 @@
+.page {
+  padding-bottom: 6rem;
+}
+
+.header {
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.75rem;
+}
+
+.card {
+  background: linear-gradient(135deg, var(--card-bg), var(--bg-secondary));
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  border-color: hsl(var(--primary) / 0.2);
+  box-shadow: var(--shadow-elevated);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.row + .row {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.rowLabel {
+  font-weight: 600;
+  margin-bottom: 0.125rem;
+}
+
+.rowDesc {
+  font-size: 0.8rem;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Toggle Switch */
+.toggle {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.toggleOn {
+  background-color: hsl(var(--primary));
+}
+
+.toggleOff {
+  background-color: var(--border-card);
+}
+
+.toggleKnob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 3px;
+  transition: left 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.toggleKnobOn {
+  left: 24px;
+}
+
+.toggleKnobOff {
+  left: 3px;
+}
+
+/* Slider */
+.sliderRow {
+  padding: 1rem;
+}
+
+.sliderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.sliderLabel {
+  font-weight: 600;
+}
+
+.sliderValue {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  font-weight: 600;
+}
+
+.slider {
+  width: 100%;
+  accent-color: hsl(var(--primary));
+  height: 6px;
+  cursor: pointer;
+}
+
+/* Privacy options */
+.privacyGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+}
+
+.privacyOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  border-radius: calc(var(--radius-card) - 2px);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  background: none;
+  font: inherit;
+  color: inherit;
+  transition: all 0.15s;
+}
+
+.privacyOptionActive {
+  border-color: hsl(var(--primary));
+  background-color: hsl(var(--primary) / 0.08);
+  color: hsl(var(--primary));
+  font-weight: 600;
+}
+
+.privacyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: hsl(var(--primary) / 0.1);
+  flex-shrink: 0;
+}
+
+.privacyOptionActive .privacyIcon {
+  background-color: hsl(var(--primary));
+  color: white;
+}
+
+.privacyText {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Account buttons */
+.accountGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.accountBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-16);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-card);
+  background-color: var(--card-bg);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.accountBtn:hover {
+  background-color: var(--card-elevated);
+  border-color: hsl(var(--primary) / 0.3);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+}
+
+.accountBtnDanger {
+  color: hsl(var(--destructive));
+}
+
+.accountBtnDanger:hover {
+  border-color: hsl(var(--destructive) / 0.3);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 2rem 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+}
+
+.footerVersion {
+  margin-bottom: 0.25rem;
+}

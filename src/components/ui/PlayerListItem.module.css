@@ -1,0 +1,42 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: var(--space-16);
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.item:hover {
+  background-color: hsl(var(--muted));
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.position {
+  font-size: 0.8rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.badge {
+  flex-shrink: 0;
+}

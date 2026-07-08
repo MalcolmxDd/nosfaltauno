@@ -1,0 +1,151 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  background: linear-gradient(180deg, hsl(var(--card) / 0.95), hsl(var(--card) / 0.7));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid hsl(var(--border));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 50;
+  padding: 0 1rem;
+  padding-top: env(safe-area-inset-top);
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rightSection {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.iconButton {
+  position: relative;
+  padding: 0.5rem;
+  color: hsl(var(--muted-foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.iconButton:hover {
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--muted));
+}
+
+.iconButtonActive {
+  color: hsl(var(--primary));
+}
+
+.iconButtonActive:hover {
+  color: hsl(var(--primary));
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.titleGradient {
+  background: linear-gradient(to right, #4ade80, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.titlePlain {
+  color: var(--foreground);
+}
+
+.mapToggle {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mapToggleActive {
+  color: hsl(var(--primary));
+  background-color: hsl(var(--background));
+  border: 1px solid hsl(var(--primary));
+}
+
+.mapToggleInactive {
+  color: var(--foreground);
+}
+
+.notificationDot {
+  position: relative;
+  display: flex;
+}
+
+.badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background-color: hsl(var(--destructive));
+  border-radius: 50%;
+  border: 2px solid hsl(var(--card));
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.backButton {
+  padding: 0.5rem;
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.15s;
+}
+
+.backButton:hover {
+  background-color: hsl(var(--muted));
+}
+
+.profileBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--muted-foreground));
+  transition: all 0.2s;
+  border: 2px solid transparent;
+  background: hsl(var(--muted));
+}
+
+.profileBtn:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.profileBtnActive {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: hsl(var(--primary) / 0.1);
+}

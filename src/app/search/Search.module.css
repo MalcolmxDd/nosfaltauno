@@ -1,0 +1,217 @@
+.page {
+    padding-bottom: 6rem;
+}
+
+.header {
+    padding: 1.25rem 0 1rem;
+}
+
+.headerTitle {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+
+.inputWrap {
+    display: flex;
+    align-items: center;
+    border-radius: var(--radius-input);
+    border: 1px solid var(--border-card);
+    background: hsl(var(--input));
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+.inputWrap:focus-within {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+}
+
+.inputIcon {
+    flex-shrink: 0;
+    padding: 0 0 0 0.85rem;
+    color: hsl(var(--muted-foreground));
+    display: flex;
+    align-items: center;
+}
+
+.inputWrap:focus-within .inputIcon {
+    color: hsl(var(--primary));
+}
+
+.input {
+    width: 100%;
+    height: 3rem;
+    padding: 0 1rem;
+    background: transparent;
+    border: none;
+    color: hsl(var(--foreground));
+    font-size: 0.9rem;
+    outline: none;
+    font-family: inherit;
+}
+
+.input::placeholder {
+    color: hsl(var(--muted-foreground) / 0.6);
+}
+
+.filters {
+    display: flex;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.filters::-webkit-scrollbar {
+    display: none;
+}
+
+/* Empty state */
+.emptyState {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.emptyIcon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    background: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+}
+
+.emptyText {
+    color: hsl(var(--muted-foreground));
+    font-size: var(--text-sm);
+}
+
+/* Results */
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sectionTitle {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 0.75rem;
+}
+
+.matchCard {
+    display: block;
+    background: linear-gradient(135deg, var(--card-bg), var(--bg-secondary));
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-16) var(--space-20);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+}
+
+.matchCard:hover {
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-1px);
+}
+
+.matchCardTitle {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-size: var(--text-sm);
+}
+
+.matchCardMeta {
+    font-size: var(--text-xs);
+    color: hsl(var(--muted-foreground));
+}
+
+.playerCard {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    background: linear-gradient(135deg, var(--card-bg), var(--bg-secondary));
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-16);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+}
+
+.playerCard:hover {
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-1px);
+}
+
+.teamCard {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    background: linear-gradient(135deg, var(--card-bg), var(--bg-secondary));
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-16) var(--space-20);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+}
+
+.teamCard:hover {
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-1px);
+}
+
+.teamLogo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.teamInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.teamName {
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+}
+
+.teamMembers {
+    font-size: var(--text-xs);
+    color: hsl(var(--muted-foreground));
+}
+
+.noResults {
+    font-size: var(--text-sm);
+    color: hsl(var(--muted-foreground));
+    padding: 0.5rem 0;
+}

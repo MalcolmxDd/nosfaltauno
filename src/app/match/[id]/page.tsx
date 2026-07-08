@@ -7,6 +7,7 @@ export function generateStaticParams() {
     }));
 }
 
-export default function MatchDetailsPage({ params }: { params: { id: string } }) {
-    return <MatchDetailsClient matchId={params.id} />;
+export default async function MatchDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    return <MatchDetailsClient matchId={id} />;
 }
