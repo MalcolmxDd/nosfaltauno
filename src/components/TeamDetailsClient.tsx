@@ -2,167 +2,88 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { MOCK_TEAMS, MOCK_USERS, MOCK_MATCHES } from '@/data/mocks';
-import { Circle, Trophy, Users, Calendar, MapPin } from 'lucide-react';
+import { MOCK_TEAMS } from '@/data/mocks';
+import { getAllMatches } from '@/data/store';
+import StatsGrid from '@/components/ui/StatsGrid';
+import PlayerListItem from '@/components/ui/PlayerListItem';
 
 interface TeamDetailsClientProps {
     teamId: string;
 }
 
 export default function TeamDetailsClient({ teamId }: TeamDetailsClientProps) {
-    const team = MOCK_TEAMS.find((t) => t.id === teamId);
-    const [isMember, setIsMember] = useState(team?.isMember || false);
-    const teamMatches = MOCK_MATCHES.filter((match) => 
-        team?.members.some((member) => match.confirmedPlayers.some((p) => p.id === member.id))
-    );
+    const [isMember, setIsMember] = useState(false);
+    const team = MOCK_TEAMS.find(t => t.id === teamId);
 
     if (!team) {
         return (
-            <div className="container" style={{ paddingTop: '2rem' }}>
-                <header style={{ padding: '1rem 0', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <Link href="/teams" className="btn btn-ghost" style={{ padding: '0.5rem' }}>
-                        ⬅
-                    </Link>
-                    <h1 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Equipo no encontrado</h1>
-                </header>
-                <p style={{ color: 'var(--muted-foreground)', marginTop: '0.5rem' }}>
-                    No pudimos encontrar el equipo que estás buscando.
-                </p>
+            <div className="container pt-4">
+                <Link href="/teams" style={{ color: 'hsl(var(--primary))', fontSize: '0.875rem', display: 'block', marginBottom: '1rem' }}>
+                    ⬅ Volver
+                </Link>
+                <h1 className="text-xl font-bold">Equipo no encontrado</h1>
+                <p className="text-sm text-muted mt-2">No pudimos encontrar el equipo que estás buscando.</p>
             </div>
         );
     }
 
-    const handleJoinTeam = () => {
-        setIsMember(!isMember);
-    };
+    const teamMatches = getAllMatches().filter((m: any) => m.id === teamId || m.title.toLowerCase().includes(team.name.toLowerCase()));
 
     return (
-        <div className="container" style={{ paddingBottom: '6rem' }}>
-            <header style={{ padding: '1rem 0', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <Link href="/teams" className="btn btn-ghost" style={{ padding: '0.5rem' }}>
-                    ⬅
+        <div className="container">
+            <div className="pt-4 mb-4">
+                <Link href="/teams" style={{ color: 'hsl(var(--primary))', fontSize: '0.875rem', display: 'block', marginBottom: '1rem' }}>
+                    ⬅ Volver
                 </Link>
-                <h1 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Detalles del Equipo</h1>
-            </header>
-
-            {/* Team Header */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2rem', marginBottom: '2rem' }}>
-                <div
-                    style={{
-                        width: '120px',
-                        height: '120px',
-                        borderRadius: '50%',
-                        backgroundColor: 'hsl(var(--primary))',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginBottom: '1rem',
-                    }}
-                >
-                    {team.logo === 'football' ? (
-                        <Circle size={64} color="white" fill="white" />
-                    ) : (
-                        <Trophy size={64} color="white" />
-                    )}
-                </div>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{team.name}</h1>
-                <p style={{ color: 'var(--muted-foreground)', textAlign: 'center', marginBottom: '1rem' }}>
-                    {team.description}
-                </p>
-                {isMember && (
-                    <span
-                        style={{
-                            padding: '0.5rem 1rem',
-                            borderRadius: '2rem',
-                            backgroundColor: 'hsl(var(--primary) / 0.1)',
-                            color: 'hsl(var(--primary))',
-                            fontSize: '0.875rem',
-                            fontWeight: '600',
-                        }}
+                <h1 className="text-2xl font-bold mb-1">{team.name}</h1>
+                <p className="text-sm text-muted">{team.description}</p>
+                <div className="flex gap-3 mt-4">
+                    <button
+                        onClick={() => setIsMember(!isMember)}
+                        className={`btn ${isMember ? 'btn-ghost' : 'btn-primary'}`}
+                        style={{ minWidth: '120px' }}
                     >
-                        Miembro
-                    </span>
-                )}
-            </div>
-
-            {/* Action Button */}
-            <div style={{ marginBottom: '2rem' }}>
-                <button
-                    onClick={handleJoinTeam}
-                    className={isMember ? 'btn btn-ghost' : 'btn btn-primary'}
-                    style={{ width: '100%' }}
-                >
-                    {isMember ? 'Dejar el Equipo' : 'Unirse al Equipo'}
-                </button>
+                        {isMember ? 'Dejar el Equipo' : 'Unirse al Equipo'}
+                    </button>
+                </div>
             </div>
 
             {/* Stats */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '2rem' }}>
-                <div style={{ backgroundColor: 'hsl(var(--card))', padding: '1rem', borderRadius: 'var(--radius)', textAlign: 'center' }}>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'hsl(var(--primary))' }}>{team.members.length}</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>Miembros</p>
-                </div>
-                <div style={{ backgroundColor: 'hsl(var(--card))', padding: '1rem', borderRadius: 'var(--radius)', textAlign: 'center' }}>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'hsl(var(--secondary))' }}>{team.matchesPlayed}</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>Partidos</p>
-                </div>
-            </div>
+            <StatsGrid
+                columns={2}
+                stats={[
+                    { label: 'Miembros', value: team.members.length },
+                    { label: 'Partidos', value: teamMatches.length },
+                ]}
+            />
 
             {/* Members */}
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Users size={18} /> Miembros ({team.members.length})
-                </h2>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div className="mb-8">
+                <h2 className="text-lg font-bold mb-4">Miembros ({team.members.length})</h2>
+                <div className="flex flex-col gap-2">
                     {team.members.map((member) => (
-                        <Link
+                        <PlayerListItem
                             key={member.id}
+                            player={member}
                             href={`/user/${member.id}`}
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '1rem',
-                                padding: '0.75rem',
-                                backgroundColor: 'hsl(var(--card))',
-                                borderRadius: 'var(--radius)',
-                            }}
-                        >
-                            <img
-                                src={member.avatar}
-                                alt={member.name}
-                                style={{ width: '48px', height: '48px', borderRadius: '50%' }}
-                            />
-                            <div style={{ flex: 1 }}>
-                                <p style={{ fontWeight: '600', fontSize: '0.9rem' }}>{member.name}</p>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>{member.position}</p>
-                            </div>
-                        </Link>
+                        />
                     ))}
                 </div>
             </div>
 
             {/* Recent Matches */}
             {teamMatches.length > 0 && (
-                <div style={{ marginTop: '2rem' }}>
-                    <h2 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Calendar size={18} /> Partidos Recientes
-                    </h2>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                        {teamMatches.slice(0, 5).map((match) => (
+                <div className="mb-8">
+                    <h2 className="text-lg font-bold mb-4">Partidos Recientes</h2>
+                    <div className="flex flex-col gap-3">
+                        {teamMatches.map((match) => (
                             <Link
                                 key={match.id}
                                 href={`/match/${match.id}`}
-                                style={{
-                                    backgroundColor: 'hsl(var(--card))',
-                                    padding: '1rem',
-                                    borderRadius: 'var(--radius)',
-                                }}
+                                className="bg-card rounded-md p-4 block"
                             >
-                                <h3 style={{ fontWeight: '600', fontSize: '0.9rem', marginBottom: '0.5rem' }}>{match.title}</h3>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                    <MapPin size={12} /> {match.location}
-                                </p>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>{match.date}</p>
+                                <h3 className="font-semibold mb-1">{match.title}</h3>
+                                <p className="text-sm text-muted">{match.location} • {match.date}</p>
                             </Link>
                         ))}
                     </div>
@@ -171,4 +92,3 @@ export default function TeamDetailsClient({ teamId }: TeamDetailsClientProps) {
         </div>
     );
 }
-

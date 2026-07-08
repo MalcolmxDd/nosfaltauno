@@ -2,137 +2,47 @@ export default function Logo({ className, style }: { className?: string, style?:
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 200 200"
+            viewBox="0 0 64 64"
             className={className}
             style={style}
             width="150"
             height="150"
         >
             <defs>
-                <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#22c55e', stopOpacity: 1 }} />
-                    <stop offset="50%" style={{ stopColor: '#16a34a', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#15803d', stopOpacity: 1 }} />
+                <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#00e676" />
+                    <stop offset="100%" stopColor="#00c853" />
                 </linearGradient>
-                <linearGradient id="ballGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#f3f4f6', stopOpacity: 1 }} />
-                </linearGradient>
-                <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
-                    <feOffset dx="0" dy="4" result="offsetblur" />
-                    <feComponentTransfer>
-                        <feFuncA type="linear" slope="0.3" />
-                    </feComponentTransfer>
-                    <feMerge>
-                        <feMergeNode />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-                    <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
             </defs>
-
-            {/* Shield Background with depth */}
             <path
-                d="M100 15 L175 50 V95 C175 150 100 195 100 195 C100 195 25 150 25 95 V50 L100 15 Z"
-                fill="url(#shieldGrad)"
-                stroke="rgba(255, 255, 255, 0.3)"
-                strokeWidth="3"
-                filter="url(#shadow)"
+                d="M32 4 L56 16 L56 30 Q56 48 32 60 Q8 48 8 30 L8 16 Z"
+                fill="url(#logoGrad)"
+                stroke="#0d0d0d"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
             />
-            
-            {/* Inner shield highlight */}
-            <path
-                d="M100 20 L165 50 V90 C165 140 100 185 100 185 C100 185 35 140 35 90 V50 L100 20 Z"
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.2)"
-                strokeWidth="1"
-            />
-
-            {/* Soccer Ball - More detailed and professional */}
-            <g transform="translate(100, 100)">
-                {/* Ball base */}
-                <circle
-                    cx="0"
-                    cy="0"
-                    r="38"
-                    fill="url(#ballGrad)"
-                    stroke="#1e293b"
-                    strokeWidth="2.5"
-                    filter="url(#shadow)"
-                />
-                
-                {/* Hexagon pattern - top */}
-                <path
-                    d="M0 -30 L13 -20 L13 -5 L0 5 L-13 -5 L-13 -20 Z"
-                    fill="#1e293b"
-                    stroke="none"
-                />
-                
-                {/* Pentagon pattern - center left */}
-                <path
-                    d="M-25 0 L-15 -12 L-5 -8 L-5 8 L-15 12 Z"
-                    fill="#1e293b"
-                    stroke="none"
-                />
-                
-                {/* Pentagon pattern - center right */}
-                <path
-                    d="M25 0 L15 -12 L5 -8 L5 8 L15 12 Z"
-                    fill="#1e293b"
-                    stroke="none"
-                />
-                
-                {/* Hexagon pattern - bottom */}
-                <path
-                    d="M0 30 L13 20 L13 5 L0 -5 L-13 5 L-13 20 Z"
-                    fill="#1e293b"
-                    stroke="none"
-                />
-                
-                {/* Connecting lines */}
-                <line x1="0" y1="-30" x2="-15" y2="-12" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                <line x1="0" y1="-30" x2="15" y2="-12" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                <line x1="-15" y1="-12" x2="-25" y2="0" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                <line x1="15" y1="-12" x2="25" y2="0" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                <line x1="-25" y1="0" x2="-15" y2="12" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                <line x1="25" y1="0" x2="15" y2="12" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                <line x1="-15" y1="12" x2="0" y2="30" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                <line x1="15" y1="12" x2="0" y2="30" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                
-                {/* Highlight on ball */}
-                <ellipse
-                    cx="-8"
-                    cy="-10"
-                    rx="12"
-                    ry="8"
-                    fill="rgba(255, 255, 255, 0.4)"
-                    opacity="0.6"
-                />
-            </g>
-
-            {/* Text "NF1" with better styling */}
             <text
-                x="100"
-                y="170"
+                x="32" y="37"
                 textAnchor="middle"
-                fill="white"
-                fontSize="28"
-                fontWeight="800"
-                fontFamily="system-ui, -apple-system, sans-serif"
-                letterSpacing="2"
-                style={{ 
-                    textShadow: '0px 2px 8px rgba(0,0,0,0.4)',
-                    filter: 'url(#glow)'
-                }}
+                fontFamily="Arial Black, Impact, sans-serif"
+                fontSize="18"
+                fontWeight="900"
+                fill="#0d0d0d"
+                letterSpacing="1"
             >
                 NF1
+            </text>
+            <circle cx="32" cy="46" r="8" fill="#0d0d0d" />
+            <text
+                x="32" y="49"
+                textAnchor="middle"
+                fontFamily="Arial, sans-serif"
+                fontSize="6"
+                fontWeight="bold"
+                fill="url(#logoGrad)"
+                letterSpacing="1"
+            >
+                10
             </text>
         </svg>
     );

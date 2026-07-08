@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect } from "react";
-import { MOCK_MATCHES } from "@/data/mocks";
+import { getAllMatches } from "@/data/store";
 
 // Icono personalizado para evitar problemas con los assets de Leaflet en bundlers
 const defaultIcon = new L.Icon({
@@ -20,9 +20,7 @@ const defaultIcon = new L.Icon({
 export default function DynamicMap() {
     // Solucionamos el problema de los iconos en entornos de bundlers
     useEffect(() => {
-        // @ts-ignore
-        delete L.Icon.Default.prototype._getIconUrl;
-        // @ts-ignore
+        delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: string })._getIconUrl;
         L.Icon.Default.mergeOptions({
             iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
             iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
@@ -31,8 +29,8 @@ export default function DynamicMap() {
     }, []);
 
     // Partidos con coordenadas desde el mock
-    const matchesWithCoords = MOCK_MATCHES.filter(
-        (match) => typeof match.lat === "number" && typeof match.lng === "number"
+    const matchesWithCoords = getAllMatches().filter(
+        (match: any) => typeof match.lat === "number" && typeof match.lng === "number"
     );
 
     // Coordenadas de Hualqui, Biobío, Chile (fallback)

@@ -1,0 +1,26 @@
+.feedHeader {
+    padding: var(--space-20) 0 var(--space-16);
+}
+
+.feedTitle {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, hsl(var(--foreground)), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.feedSubtitle {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin-top: 0.15rem;
+}
+
+.cardList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding-bottom: var(--space-16);
+}

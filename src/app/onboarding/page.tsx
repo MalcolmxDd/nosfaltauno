@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Circle } from 'lucide-react';
+import { CircleCheck, Dumbbell, Footprints, MapPin, Clock } from 'lucide-react';
+import styles from './Onboarding.module.css';
 
 type Position = 'Portero' | 'Defensa' | 'Mediocampista' | 'Delantero';
 type Level = 'Principiante' | 'Intermedio' | 'Avanzado';
@@ -11,7 +12,6 @@ type Frequency = '1 vez/semana' | '2-3 veces/semana' | 'Todos los días' | 'Ocas
 export default function OnboardingPage() {
     const router = useRouter();
     const [step, setStep] = useState(1);
-    
     const [position, setPosition] = useState<Position | ''>('');
     const [preferredFoot, setPreferredFoot] = useState<'Derecho' | 'Izquierdo' | 'Ambos'>('Derecho');
     const [level, setLevel] = useState<Level | ''>('');
@@ -36,124 +36,63 @@ export default function OnboardingPage() {
         if (step < 3) {
             setStep(step + 1);
         } else {
-            // Mock: guardar preferencias y redirigir al feed
-            setTimeout(() => {
-                router.push('/feed');
-            }, 500);
+            setTimeout(() => router.push('/feed'), 500);
         }
     };
 
-    const handleBack = () => {
-        if (step > 1) setStep(step - 1);
-    };
-
     return (
-        <main className="container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem 1rem' }}>
-            <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                <div style={{ marginBottom: '1rem' }}>
-                    <div style={{ 
-                        width: '100%', 
-                        height: '4px', 
-                        backgroundColor: 'hsl(var(--card))', 
-                        borderRadius: '2px',
-                        marginBottom: '1rem'
-                    }}>
-                        <div style={{ 
-                            width: `${(step / 3) * 100}%`, 
-                            height: '100%', 
-                            backgroundColor: 'hsl(var(--primary))', 
-                            borderRadius: '2px',
-                            transition: 'width 0.3s'
-                        }} />
-                    </div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                        {step === 1 && 'Cuéntanos sobre ti'}
-                        {step === 2 && '¿Dónde y cuándo juegas?'}
-                        {step === 3 && '¡Listo para empezar!'}
-                    </h1>
-                    <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem' }}>
-                        Paso {step} de 3
-                    </p>
+        <main className={styles.page}>
+            {/* Progress */}
+            <div className={styles.progressSection}>
+                <div className={styles.progressBar}>
+                    <div className={styles.progressFill} style={{ width: `${(step / 3) * 100}%` }} />
                 </div>
+                <h1 className={styles.stepTitle}>
+                    {step === 1 && 'Cuéntanos sobre ti'}
+                    {step === 2 && '¿Dónde y cuándo juegas?'}
+                    {step === 3 && '¡Listo para empezar!'}
+                </h1>
+                <p className={styles.stepSubtitle}>Paso {step} de 3</p>
             </div>
 
             {step === 1 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                    <div>
-                        <label style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>
+                <div className={styles.content}>
+                    <div className={styles.field}>
+                        <label className={styles.label}>
+                            <Dumbbell size={14} className={styles.labelIcon} />
                             Posición favorita
                         </label>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                        <div className={styles.grid2}>
                             {(['Portero', 'Defensa', 'Mediocampista', 'Delantero'] as Position[]).map((pos) => (
-                                <button
-                                    key={pos}
-                                    type="button"
-                                    onClick={() => setPosition(pos)}
-                                    style={{
-                                        padding: '1rem',
-                                        borderRadius: 'var(--radius)',
-                                        border: `2px solid ${position === pos ? 'hsl(var(--primary))' : 'var(--border)'}`,
-                                        backgroundColor: position === pos ? 'hsl(var(--primary) / 0.1)' : 'hsl(var(--card))',
-                                        color: position === pos ? 'hsl(var(--primary))' : 'var(--foreground)',
-                                        fontWeight: position === pos ? '600' : '400',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s',
-                                    }}
-                                >
+                                <button key={pos} type="button" onClick={() => setPosition(pos)}
+                                    className={`${styles.option} ${position === pos ? styles.optionSelected : ''}`}>
                                     {pos}
                                 </button>
                             ))}
                         </div>
                     </div>
 
-                    <div>
-                        <label style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>
+                    <div className={styles.field}>
+                        <label className={styles.label}>
+                            <Footprints size={14} className={styles.labelIcon} />
                             Pie hábil
                         </label>
-                        <div style={{ display: 'flex', gap: '0.75rem' }}>
+                        <div className={styles.row3}>
                             {(['Derecho', 'Izquierdo', 'Ambos'] as const).map((foot) => (
-                                <button
-                                    key={foot}
-                                    type="button"
-                                    onClick={() => setPreferredFoot(foot)}
-                                    style={{
-                                        flex: 1,
-                                        padding: '0.75rem',
-                                        borderRadius: 'var(--radius)',
-                                        border: `2px solid ${preferredFoot === foot ? 'hsl(var(--primary))' : 'var(--border)'}`,
-                                        backgroundColor: preferredFoot === foot ? 'hsl(var(--primary) / 0.1)' : 'hsl(var(--card))',
-                                        color: preferredFoot === foot ? 'hsl(var(--primary))' : 'var(--foreground)',
-                                        fontWeight: preferredFoot === foot ? '600' : '400',
-                                        cursor: 'pointer',
-                                    }}
-                                >
+                                <button key={foot} type="button" onClick={() => setPreferredFoot(foot)}
+                                    className={`${styles.option} ${preferredFoot === foot ? styles.optionSelected : ''}`}>
                                     {foot}
                                 </button>
                             ))}
                         </div>
                     </div>
 
-                    <div>
-                        <label style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>
-                            Nivel de juego
-                        </label>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    <div className={styles.field}>
+                        <label className={styles.label}>Nivel de juego</label>
+                        <div className="flex flex-col gap-3">
                             {(['Principiante', 'Intermedio', 'Avanzado'] as Level[]).map((lev) => (
-                                <button
-                                    key={lev}
-                                    type="button"
-                                    onClick={() => setLevel(lev)}
-                                    style={{
-                                        padding: '1rem',
-                                        borderRadius: 'var(--radius)',
-                                        border: `2px solid ${level === lev ? 'hsl(var(--primary))' : 'var(--border)'}`,
-                                        backgroundColor: level === lev ? 'hsl(var(--primary) / 0.1)' : 'hsl(var(--card))',
-                                        color: level === lev ? 'hsl(var(--primary))' : 'var(--foreground)',
-                                        fontWeight: level === lev ? '600' : '400',
-                                        cursor: 'pointer',
-                                        textAlign: 'left',
-                                    }}
-                                >
+                                <button key={lev} type="button" onClick={() => setLevel(lev)}
+                                    className={`${styles.optionRow} ${level === lev ? styles.optionRowSelected : ''}`}>
                                     {lev}
                                 </button>
                             ))}
@@ -163,83 +102,45 @@ export default function OnboardingPage() {
             )}
 
             {step === 2 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                    <div>
-                        <label style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>
+                <div className={styles.content}>
+                    <div className={styles.field}>
+                        <label className={styles.label}>
+                            <Clock size={14} className={styles.labelIcon} />
                             ¿Con qué frecuencia juegas?
                         </label>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        <div className="flex flex-col gap-3">
                             {(['1 vez/semana', '2-3 veces/semana', 'Todos los días', 'Ocasional'] as Frequency[]).map((freq) => (
-                                <button
-                                    key={freq}
-                                    type="button"
-                                    onClick={() => setFrequency(freq)}
-                                    style={{
-                                        padding: '1rem',
-                                        borderRadius: 'var(--radius)',
-                                        border: `2px solid ${frequency === freq ? 'hsl(var(--primary))' : 'var(--border)'}`,
-                                        backgroundColor: frequency === freq ? 'hsl(var(--primary) / 0.1)' : 'hsl(var(--card))',
-                                        color: frequency === freq ? 'hsl(var(--primary))' : 'var(--foreground)',
-                                        fontWeight: frequency === freq ? '600' : '400',
-                                        cursor: 'pointer',
-                                        textAlign: 'left',
-                                    }}
-                                >
+                                <button key={freq} type="button" onClick={() => setFrequency(freq)}
+                                    className={`${styles.optionRow} ${frequency === freq ? styles.optionRowSelected : ''}`}>
                                     {freq}
                                 </button>
                             ))}
                         </div>
                     </div>
 
-                    <div>
-                        <label style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>
-                            Zonas donde juegas (puedes elegir varias)
+                    <div className={styles.field}>
+                        <label className={styles.label}>
+                            <MapPin size={14} className={styles.labelIcon} />
+                            Zonas donde juegas
                         </label>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                        <div className={styles.pillGroup}>
                             {availableZones.map((zone) => (
-                                <button
-                                    key={zone}
-                                    type="button"
-                                    onClick={() => handleZoneToggle(zone)}
-                                    style={{
-                                        padding: '0.5rem 1rem',
-                                        borderRadius: '2rem',
-                                        border: `2px solid ${zones.includes(zone) ? 'hsl(var(--primary))' : 'var(--border)'}`,
-                                        backgroundColor: zones.includes(zone) ? 'hsl(var(--primary))' : 'hsl(var(--card))',
-                                        color: zones.includes(zone) ? 'white' : 'var(--foreground)',
-                                        fontSize: '0.875rem',
-                                        fontWeight: zones.includes(zone) ? '600' : '400',
-                                        cursor: 'pointer',
-                                    }}
-                                >
+                                <button key={zone} type="button" onClick={() => handleZoneToggle(zone)}
+                                    className={`${styles.pill} ${zones.includes(zone) ? styles.pillSelected : ''}`}>
                                     {zone}
                                 </button>
                             ))}
                         </div>
                     </div>
 
-                    <div>
-                        <label style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>
-                            Horarios preferidos (puedes elegir varios)
+                    <div className={styles.field}>
+                        <label className={styles.label}>
+                            Horarios preferidos
                         </label>
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <div className={styles.row3}>
                             {availableTimes.map((time) => (
-                                <button
-                                    key={time}
-                                    type="button"
-                                    onClick={() => handleTimeToggle(time)}
-                                    style={{
-                                        flex: 1,
-                                        padding: '0.75rem',
-                                        borderRadius: 'var(--radius)',
-                                        border: `2px solid ${preferredTimes.includes(time) ? 'hsl(var(--primary))' : 'var(--border)'}`,
-                                        backgroundColor: preferredTimes.includes(time) ? 'hsl(var(--primary))' : 'hsl(var(--card))',
-                                        color: preferredTimes.includes(time) ? 'white' : 'var(--foreground)',
-                                        fontSize: '0.875rem',
-                                        fontWeight: preferredTimes.includes(time) ? '600' : '400',
-                                        cursor: 'pointer',
-                                    }}
-                                >
+                                <button key={time} type="button" onClick={() => handleTimeToggle(time)}
+                                    className={`${styles.option} ${preferredTimes.includes(time) ? styles.optionSelected : ''}`}>
                                     {time}
                                 </button>
                             ))}
@@ -249,33 +150,25 @@ export default function OnboardingPage() {
             )}
 
             {step === 3 && (
-                <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-                    <Circle size={64} style={{ marginBottom: '1rem', color: 'hsl(var(--primary))' }} />
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                        ¡Todo listo!
-                    </h2>
-                    <p style={{ color: 'var(--muted-foreground)', marginBottom: '2rem' }}>
+                <div className={styles.completeSection}>
+                    <div className={styles.completeIcon}>
+                        <CircleCheck size={64} />
+                    </div>
+                    <h2 className={styles.completeTitle}>¡Todo listo!</h2>
+                    <p className={styles.completeDesc}>
                         Ya puedes empezar a encontrar y crear pichangas cerca de ti.
                     </p>
                 </div>
             )}
 
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+            <div className={styles.actions}>
                 {step > 1 && (
-                    <button
-                        type="button"
-                        onClick={handleBack}
-                        className="btn btn-ghost"
-                        style={{ flex: 1 }}
-                    >
+                    <button type="button" onClick={() => setStep(step - 1)} className={styles.backBtn}>
                         Atrás
                     </button>
                 )}
                 <button
-                    type="button"
-                    onClick={handleNext}
-                    className="btn btn-primary"
-                    style={{ flex: 1 }}
+                    type="button" onClick={handleNext} className={styles.nextBtn}
                     disabled={
                         (step === 1 && (!position || !preferredFoot || !level)) ||
                         (step === 2 && (!frequency || zones.length === 0 || preferredTimes.length === 0))
@@ -287,4 +180,3 @@ export default function OnboardingPage() {
         </main>
     );
 }
-

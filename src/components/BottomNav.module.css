@@ -1,0 +1,127 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4.5rem;
+  background: linear-gradient(0deg, hsl(var(--card) / 0.98), hsl(var(--card) / 0.75));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 50;
+  padding: 0 0.25rem env(safe-area-inset-bottom);
+}
+
+.link {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  transition: all 0.2s;
+  transform: scale(1);
+  padding: 0.4rem 0.6rem;
+  text-decoration: none;
+  position: relative;
+  min-width: 3.5rem;
+}
+
+.link:hover {
+  color: hsl(var(--foreground));
+}
+
+.linkActive {
+  color: hsl(var(--primary));
+}
+
+.linkActive .label {
+  font-weight: 600;
+  color: hsl(var(--primary));
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  margin-top: 0.05rem;
+  box-shadow: 0 0 6px hsl(var(--primary-glow));
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.label {
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+/* FAB Center Button */
+.fabWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1.25rem;
+}
+
+.fab {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  border: none;
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover-hsl)));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: var(--shadow-glow);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, hsl(0 0% 100% / 0.12) 50%, transparent 70%);
+  transition: transform 0.5s;
+  transform: translateX(-100%);
+}
+
+.fab:hover::before {
+  transform: translateX(100%);
+}
+
+.fab:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 6px 28px hsl(var(--primary-glow));
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+.fabActive {
+  background: linear-gradient(135deg, hsl(var(--primary-hover-hsl)), hsl(var(--primary)));
+  box-shadow: var(--shadow-glow);
+}
+
+.fabActiveDot {
+  position: absolute;
+  bottom: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff;
+}

@@ -1,108 +1,79 @@
 "use client";
 
 import Link from 'next/link';
-import { MOCK_TEAMS, MOCK_USERS } from '@/data/mocks';
-import { Circle, Trophy } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { MOCK_TEAMS } from '@/data/mocks';
+import { Circle, Trophy, ChevronRight } from 'lucide-react';
+import EmptyState from '@/components/ui/EmptyState';
+import styles from './Teams.module.css';
 
 export default function TeamsPage() {
+    const router = useRouter();
     return (
         <div className="container">
-            <header style={{ padding: '1rem 0', marginBottom: '1rem' }}>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Equipos</h1>
-                <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', marginTop: '0.25rem' }}>
-                    Encuentra o crea equipos para jugar regularmente
-                </p>
+            <header className={styles.header}>
+                <h1>Equipos</h1>
+                <p>Encuentra o crea equipos para jugar regularmente</p>
             </header>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
+            <div className={styles.grid}>
                 {MOCK_TEAMS.map((team) => (
                     <Link
                         key={team.id}
                         href={`/teams/${team.id}`}
-                        style={{
-                            backgroundColor: 'hsl(var(--card))',
-                            padding: '1.5rem',
-                            borderRadius: 'var(--radius)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1rem',
-                        }}
+                        className={styles.teamCard}
                     >
-                        <div
-                            style={{
-                                width: '60px',
-                                height: '60px',
-                                borderRadius: '50%',
-                                backgroundColor: 'hsl(var(--primary))',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
+                        <div className={styles.teamLogo}>
                             {team.logo === 'football' ? (
-                                <Circle size={32} color="white" fill="white" />
+                                <Circle size={28} />
                             ) : (
-                                <Trophy size={32} color="white" />
+                                <Trophy size={28} />
                             )}
                         </div>
-                        <div style={{ flex: 1 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                                <h3 style={{ fontWeight: '600', fontSize: '1.1rem' }}>{team.name}</h3>
+                        <div className={styles.teamInfo}>
+                            <div className={styles.teamNameRow}>
+                                <span className={styles.teamName}>{team.name}</span>
                                 {team.isMember && (
-                                    <span
-                                        style={{
-                                            padding: '0.25rem 0.5rem',
-                                            borderRadius: '2rem',
-                                            backgroundColor: 'hsl(var(--primary) / 0.1)',
-                                            color: 'hsl(var(--primary))',
-                                            fontSize: '0.75rem',
-                                            fontWeight: '600',
-                                        }}
-                                    >
-                                        Miembro
-                                    </span>
+                                    <span className={styles.memberBadge}>Miembro</span>
                                 )}
                             </div>
-                            <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', marginBottom: '0.5rem' }}>
-                                {team.description}
-                            </p>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                <div style={{ display: 'flex', marginLeft: '-0.5rem' }}>
+                            <p className={styles.teamDesc}>{team.description}</p>
+                            <div className={styles.metaRow}>
+                                <div className={styles.memberAvatars}>
                                     {team.members.slice(0, 3).map((member, idx) => (
                                         <img
                                             key={member.id}
                                             src={member.avatar}
                                             alt={member.name}
-                                            style={{
-                                                width: '24px',
-                                                height: '24px',
-                                                borderRadius: '50%',
-                                                border: '2px solid hsl(var(--card))',
-                                                marginLeft: idx > 0 ? '-0.5rem' : '0',
-                                            }}
+                                            style={{ zIndex: 3 - idx }}
+                                            className={styles.memberAvatar}
                                         />
                                     ))}
                                 </div>
-                                <span style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>
+                                <span className={styles.metaText}>
                                     {team.members.length} miembros • {team.matchesPlayed} partidos
                                 </span>
                             </div>
                         </div>
+                        <ChevronRight className={styles.teamIcon} />
                     </Link>
                 ))}
+                {MOCK_TEAMS.length === 0 && (
+                    <EmptyState
+                        icon={Trophy}
+                        title="Sin equipos"
+                        message="No hay equipos disponibles aún."
+                        action={{ label: 'Crear primer equipo', onClick: () => router.push('/teams/create') }}
+                    />
+                )}
             </div>
 
             <button
-                className="btn btn-primary"
-                style={{ width: '100%' }}
-                onClick={() => {
-                    // Mock: crear equipo
-                    alert('Función de crear equipo (mock)');
-                }}
+                className={styles.createBtn}
+                onClick={() => router.push('/teams/create')}
             >
                 + Crear Equipo
             </button>
         </div>
     );
 }
-

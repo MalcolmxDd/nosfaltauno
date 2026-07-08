@@ -2,69 +2,89 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { MOCK_USERS, MOCK_REVIEWS, MOCK_PAST_MATCHES } from '@/data/mocks';
-import { Trophy, Calendar, Users, Settings, Star } from 'lucide-react';
+import { Trophy, Calendar, Users, Settings, Star, LogOut, Medal, Edit3 } from 'lucide-react';
+import { useToast } from '@/contexts/ToastContext';
+import TabBar from '@/components/ui/TabBar';
+import EmptyState from '@/components/ui/EmptyState';
+import styles from './Profile.module.css';
 
 type Tab = 'partidos' | 'equipos' | 'amigos';
 
 export default function ProfilePage() {
-    const user = MOCK_USERS[0]; // Mock logged in user
+    const router = useRouter();
+    const { success } = useToast();
+    const user = MOCK_USERS[0];
     const [activeTab, setActiveTab] = useState<Tab>('partidos');
     const myReviews = MOCK_REVIEWS.filter(r => r.toUser.id === user.id);
 
+    const tabs = [
+        { id: 'partidos' as Tab, label: 'Partidos' },
+        { id: 'equipos' as Tab, label: 'Equipos' },
+        { id: 'amigos' as Tab, label: 'Amigos' },
+    ];
+
     return (
         <div className="container">
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2rem', marginBottom: '2rem' }}>
-                <div style={{
-                    width: '120px',
-                    height: '120px',
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    marginBottom: '1rem',
-                    border: '4px solid hsl(var(--primary))'
-                }}>
-                    <img src={user.avatar} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            {/* Cover Banner */}
+            <div className={styles.bannerWrap}>
+                <div className={styles.bannerInner}>
+                    <img
+                        src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=800&q=80"
+                        alt=""
+                        className={styles.bannerBg}
+                    />
+                    <div className={styles.bannerOverlay} />
+                    <div className={styles.bannerPattern} />
+                    <Link href="/profile/edit" className={styles.editBtn} aria-label="Editar perfil">
+                        <Edit3 size={16} />
+                    </Link>
                 </div>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{user.name}</h1>
-                <p style={{ color: 'var(--muted-foreground)', display: 'flex', alignItems: 'center', gap: '0.25rem', justifyContent: 'center' }}>
-                    {user.position} • <Star size={14} fill="currentColor" /> {user.skillLevel}
+                <div className={styles.avatarWrap}>
+                    <img src={user.avatar} alt={user.name} className={styles.avatar} />
+                </div>
+            </div>
+
+            {/* Profile Info */}
+            <div className={styles.profileInfo}>
+                <h1 className={styles.profileName}>{user.name}</h1>
+                <p className={styles.profileMeta}>
+                    {user.position}
+                    <span className="text-muted">•</span>
+                    <Star size={14} className={styles.starIcon} fill="currentColor" />
+                    {user.skillLevel}
                 </p>
             </div>
 
-            {/* Stats */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem', marginBottom: '2rem' }}>
-                <div style={{ backgroundColor: 'hsl(var(--card))', padding: '1rem', borderRadius: 'var(--radius)', textAlign: 'center' }}>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'hsl(var(--primary))' }}>{user.matchesPlayed}</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>Partidos</p>
+            {/* Premium Stats */}
+            <div className={styles.statsGrid}>
+                <div className={styles.statCard}>
+                    <div className={styles.statValue}>{user.matchesPlayed}</div>
+                    <div className={styles.statLabel}>Partidos</div>
                 </div>
-                <div style={{ backgroundColor: 'hsl(var(--card))', padding: '1rem', borderRadius: 'var(--radius)', textAlign: 'center' }}>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'hsl(var(--secondary))' }}>{user.matchesHosted}</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>Organizados</p>
+                <div className={styles.statCard}>
+                    <div className={styles.statValue}>{user.matchesHosted}</div>
+                    <div className={styles.statLabel}>Organizados</div>
                 </div>
-                <div style={{ backgroundColor: 'hsl(var(--card))', padding: '1rem', borderRadius: 'var(--radius)', textAlign: 'center' }}>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'hsl(var(--accent))' }}>{user.attendanceRate}%</h3>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>Asistencia</p>
+                <div className={styles.statCard}>
+                    <div className={styles.statValue}>{user.attendanceRate}%</div>
+                    <div className={styles.statLabel}>Asistencia</div>
                 </div>
             </div>
 
-            {/* Badges */}
+            {/* Badges / Achievements */}
             {user.badges && user.badges.length > 0 && (
-                <div style={{ marginBottom: '2rem' }}>
-                    <h2 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1rem' }}>Logros</h2>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div className={styles.section}>
+                    <h2 className={styles.sectionTitle}>
+                        <Medal size={18} className={styles.sectionTitleIcon} />
+                        Logros
+                    </h2>
+                    <div className={styles.badgeGrid}>
                         {user.badges.map((badge, idx) => (
-                            <span
-                                key={idx}
-                                style={{
-                                    padding: '0.5rem 1rem',
-                                    borderRadius: '2rem',
-                                    backgroundColor: 'hsl(var(--primary) / 0.1)',
-                                    color: 'hsl(var(--primary))',
-                                    fontSize: '0.875rem',
-                                    fontWeight: '600',
-                                }}
-                            >
-                                <Trophy size={14} style={{ display: 'inline', marginRight: '0.25rem', verticalAlign: 'middle' }} /> {badge}
+                            <span key={idx} className={styles.badge}>
+                                <Trophy size={14} className={styles.badgeIcon} />
+                                {badge}
                             </span>
                         ))}
                     </div>
@@ -72,109 +92,83 @@ export default function ProfilePage() {
             )}
 
             {/* Bio */}
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1rem' }}>Sobre mí</h2>
-                <p style={{ color: 'var(--muted-foreground)', lineHeight: '1.6' }}>
-                    {user.bio}
-                </p>
-            </div>
+            {user.bio && (
+                <div className={styles.bioSection}>
+                    <p className={styles.bioText}>{user.bio}</p>
+                </div>
+            )}
 
             {/* Tabs */}
-            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border)' }}>
-                {(['partidos', 'equipos', 'amigos'] as Tab[]).map((tab) => (
-                    <button
-                        key={tab}
-                        onClick={() => setActiveTab(tab)}
-                        style={{
-                            padding: '0.75rem 1rem',
-                            border: 'none',
-                            borderBottom: `2px solid ${activeTab === tab ? 'hsl(var(--primary))' : 'transparent'}`,
-                            backgroundColor: 'transparent',
-                            color: activeTab === tab ? 'hsl(var(--primary))' : 'var(--muted-foreground)',
-                            fontWeight: activeTab === tab ? '600' : '400',
-                            cursor: 'pointer',
-                            textTransform: 'capitalize',
-                        }}
-                    >
-                        {tab}
-                    </button>
-                ))}
-            </div>
+            <TabBar tabs={tabs} activeTab={activeTab} onChange={(id) => setActiveTab(id as Tab)} />
 
             {/* Tab Content */}
             {activeTab === 'partidos' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem' }}>Historial reciente</h3>
-                    {MOCK_PAST_MATCHES.map((match) => (
-                        <div
-                            key={match.id}
-                            style={{
-                                backgroundColor: 'hsl(var(--card))',
-                                padding: '1rem',
-                                borderRadius: 'var(--radius)',
-                            }}
-                        >
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                <h4 style={{ fontWeight: '600' }}>{match.title}</h4>
-                                <span style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>{match.date}</span>
+                <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Historial reciente</h3>
+                    <div className="flex flex-col gap-3">
+                        {MOCK_PAST_MATCHES.length > 0 ? MOCK_PAST_MATCHES.map((match) => (
+                            <div key={match.id} className={styles.matchCard}>
+                                <div className={styles.matchCardHeader}>
+                                    <h4 className={styles.matchTitle}>{match.title}</h4>
+                                    <span className={styles.matchDate}>{match.date}</span>
+                                </div>
+                                <p className={styles.matchMeta}>{match.location} • {match.myRole}</p>
+                                <p className={styles.matchResult}>{match.result}</p>
                             </div>
-                            <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem' }}>
-                                {match.location} • {match.myRole}
-                            </p>
-                            <p style={{ fontSize: '0.875rem', fontWeight: '600', color: 'hsl(var(--primary))' }}>
-                                {match.result}
-                            </p>
-                        </div>
-                    ))}
+                        )) : (
+                            <p className="text-sm text-muted">No tienes partidos en tu historial aún.</p>
+                        )}
+                    </div>
                 </div>
             )}
 
             {activeTab === 'equipos' && (
-                <div style={{ textAlign: 'center', padding: '2rem 0', color: 'var(--muted-foreground)' }}>
-                    <p>No estás en ningún equipo aún.</p>
-                    <Link href="/teams" style={{ color: 'hsl(var(--primary))', marginTop: '0.5rem', display: 'inline-block' }}>
-                        Explorar equipos
-                    </Link>
+                <div className={styles.section}>
+                    <EmptyState
+                        icon={Users}
+                        title="Sin equipos"
+                        message="No estás en ningún equipo aún."
+                        action={{ label: 'Explorar equipos', onClick: () => router.push('/teams') }}
+                    />
                 </div>
             )}
 
             {activeTab === 'amigos' && (
-                <div style={{ textAlign: 'center', padding: '2rem 0', color: 'var(--muted-foreground)' }}>
-                    <p>Tus amigos aparecerán aquí.</p>
+                <div className={styles.section}>
+                    <div className="text-center p-8 text-muted">
+                        <p>Tus amigos aparecerán aquí.</p>
+                    </div>
                 </div>
             )}
 
             {/* Reviews */}
             {myReviews.length > 0 && (
-                <div style={{ marginTop: '2rem' }}>
-                    <h2 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '1rem' }}>Reseñas</h2>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div className={styles.section}>
+                    <h2 className={styles.sectionTitle}>
+                        <Star size={18} className={styles.sectionTitleIcon} />
+                        Reseñas
+                    </h2>
+                    <div className="flex flex-col gap-3">
                         {myReviews.map((review) => (
-                            <div
-                                key={review.id}
-                                style={{
-                                    backgroundColor: 'hsl(var(--card))',
-                                    padding: '1rem',
-                                    borderRadius: 'var(--radius)',
-                                }}
-                            >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                                    <img
-                                        src={review.fromUser.avatar}
-                                        alt={review.fromUser.name}
-                                        style={{ width: '32px', height: '32px', borderRadius: '50%' }}
-                                    />
-                                    <div style={{ flex: 1 }}>
-                                        <p style={{ fontWeight: '600', fontSize: '0.875rem' }}>{review.fromUser.name}</p>
-                                        <div style={{ display: 'flex', gap: '0.25rem' }}>
+                            <div key={review.id} className={styles.reviewCard}>
+                                <div className={styles.reviewHeader}>
+                                    <img src={review.fromUser.avatar} alt={review.fromUser.name} className={styles.reviewAvatar} />
+                                    <div className={styles.reviewUser}>
+                                        <p className={styles.reviewName}>{review.fromUser.name}</p>
+                                        <div className={styles.reviewStars}>
                                             {[...Array(5)].map((_, i) => (
-                                                <Star key={i} size={14} fill={i < review.rating ? 'hsl(var(--primary))' : 'transparent'} color={i < review.rating ? 'hsl(var(--primary))' : 'var(--muted-foreground)'} />
+                                                <Star
+                                                    key={i}
+                                                    size={14}
+                                                    fill={i < review.rating ? 'hsl(var(--gold))' : 'transparent'}
+                                                    color={i < review.rating ? 'hsl(var(--gold))' : 'hsl(var(--muted-foreground))'}
+                                                />
                                             ))}
                                         </div>
                                     </div>
-                                    <span style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>{review.date}</span>
+                                    <span className={styles.reviewDate}>{review.date}</span>
                                 </div>
-                                <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)' }}>{review.comment}</p>
+                                <p className={styles.reviewComment}>{review.comment}</p>
                             </div>
                         ))}
                     </div>
@@ -182,19 +176,28 @@ export default function ProfilePage() {
             )}
 
             {/* Actions */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
-                <Link href="/my-matches" className="btn btn-ghost" style={{ justifyContent: 'flex-start', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div className={styles.actions}>
+                <Link href="/my-matches" className="btn btn-ghost action-btn">
                     <Calendar size={18} /> Mis Partidos
                 </Link>
-                <Link href="/teams" className="btn btn-ghost" style={{ justifyContent: 'flex-start', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Link href="/teams" className="btn btn-ghost action-btn">
                     <Users size={18} /> Equipos
                 </Link>
-                <Link href="/settings" className="btn btn-ghost" style={{ justifyContent: 'flex-start', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Settings size={18} /> Configuración
+                <Link href="/profile/edit" className="btn btn-ghost action-btn">
+                    <Settings size={18} /> Editar Perfil
                 </Link>
-                <Link href="/" className="btn btn-ghost" style={{ justifyContent: 'flex-start', color: 'hsl(var(--destructive))', border: '1px solid var(--border)' }}>
-                    Cerrar Sesión
-                </Link>
+                <button
+                    onClick={() => {
+                        if (confirm('¿Cerrar sesión?')) {
+                            success('Sesión cerrada.');
+                            router.push('/');
+                        }
+                    }}
+                    className="btn btn-ghost action-btn"
+                    style={{ color: 'hsl(var(--destructive))' }}
+                >
+                    <LogOut size={18} /> Cerrar Sesión
+                </button>
             </div>
         </div>
     );

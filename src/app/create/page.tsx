@@ -4,6 +4,20 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/contexts/ToastContext";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { saveUserMatch } from "@/data/store";
+import styles from './Create.module.css';
+import {
+    Swords,
+    MapPin,
+    Calendar,
+    Clock,
+    Users,
+    DollarSign,
+    Image,
+    Trophy,
+    Shield,
+    AlertCircle
+} from 'lucide-react';
 
 type LevelOption = "Recreativo" | "Intermedio" | "Competitivo";
 
@@ -18,6 +32,7 @@ export default function CreateMatchPage() {
     const [players, setPlayers] = useState("");
     const [price, setPrice] = useState("");
     const [level, setLevel] = useState<LevelOption>("Intermedio");
+    const [imageUrl, setImageUrl] = useState("");
 
     const [errors, setErrors] = useState<{
         title?: string;
@@ -34,11 +49,10 @@ export default function CreateMatchPage() {
 
         if (!title.trim()) newErrors.title = "El título es obligatorio.";
         if (!location.trim()) newErrors.location = "La ubicación es obligatoria.";
-        
+
         if (!date) {
             newErrors.date = "La fecha es obligatoria.";
         } else {
-            // Validar que la fecha sea futura
             const selectedDate = new Date(date);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -46,11 +60,10 @@ export default function CreateMatchPage() {
                 newErrors.date = "La fecha debe ser futura.";
             }
         }
-        
+
         if (!time) {
             newErrors.time = "La hora es obligatoria.";
         } else if (date) {
-            // Validar que si la fecha es hoy, la hora sea futura
             const selectedDate = new Date(date);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -89,12 +102,21 @@ export default function CreateMatchPage() {
 
         setIsSubmitting(true);
 
-        // Mock de creación de partido: en el futuro aquí irá la llamada al backend
         setTimeout(() => {
-            setIsSubmitting(false);
-            success("¡Partido creado exitosamente! (mock)");
+            saveUserMatch({
+                title: title.trim(),
+                location: location.trim(),
+                date,
+                time,
+                players: Number(players),
+                price: price.trim() || 'Gratis',
+                level,
+                imageUrl: imageUrl.trim() || undefined,
+            });
 
-            // Redirigimos al feed después de un pequeño delay
+            setIsSubmitting(false);
+            success("¡Partido creado exitosamente!");
+
             setTimeout(() => {
                 router.push("/feed");
             }, 1000);
@@ -106,258 +128,249 @@ export default function CreateMatchPage() {
     }
 
     return (
-        <div className="container" style={{ maxWidth: "600px", margin: "0 auto", padding: "1rem" }}>
+        <div className={`container ${styles.page}`}>
+            <div className={styles.header}>
+                <div className={styles.headerIcon}>
+                    <Swords size={24} />
+                </div>
+                <h1 className={styles.title}>Crear Partido</h1>
+                <p className={styles.subtitle}>Completa los datos para publicar tu encuentro</p>
+            </div>
 
-            {/* HEADER */}
-            <header style={{ marginBottom: "2rem", textAlign: "center" }}>
-                <h1 style={{ fontSize: "1.75rem", fontWeight: "700", marginBottom: "0.5rem" }}>
-                    Crear Partido
-                </h1>
-                <p style={{ fontSize: "0.9rem", color: "var(--muted-foreground)" }}>
-                    Organiza tu propio encuentro deportivo.
-                </p>
-            </header>
+            <div className={styles.formCard}>
+                <form onSubmit={handleSubmit} className={styles.form} noValidate>
+                    {/* Información básica */}
+                    <div className={styles.sectionDivider}>
+                        <span className={styles.sectionLine} />
+                        <span className={styles.sectionLabel}>Información básica</span>
+                        <span className={styles.sectionLine} />
+                    </div>
 
-            {/* FORM CONTAINER */}
-            <div
-                style={{
-                    backgroundColor: "hsl(var(--card))",
-                    border: "1px solid var(--border)",
-                    borderRadius: "var(--radius)",
-                    padding: "2rem",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                }}
-            >
-                <form
-                    onSubmit={handleSubmit}
-                    style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
-                    noValidate
-                >
-                    {/* INPUT REUSABLE */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
-                        <label htmlFor="title" style={{ fontSize: "0.85rem", fontWeight: "600" }}>
+                    <div className={styles.field}>
+                        <label htmlFor="title" className={styles.label}>
+                            <Swords size={14} className={styles.labelIcon} />
                             Título del Partido
                         </label>
-                        <input
-                            id="title"
-                            placeholder="Ej: Fútbol 5 Amistoso"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            style={{
-                                width: "100%",
-                                height: "3rem",
-                                padding: "0 1rem",
-                                borderRadius: "0.5rem",
-                                border: `1px solid ${errors.title ? "hsl(var(--destructive))" : "var(--border)"}`,
-                                backgroundColor: "var(--input)",
-                                color: "var(--foreground)",
-                                fontSize: "0.9rem",
-                                outline: "none",
-                                boxSizing: "border-box",
-                            }}
-                        />
+                        <div className={`${styles.inputWrap} ${errors.title ? styles.inputWrapError : ''}`}>
+                            <div className={styles.inputIcon}>
+                                <Swords size={16} />
+                            </div>
+                            <input
+                                id="title"
+                                placeholder="Ej: Fútbol 5 Amistoso"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                className={styles.input}
+                            />
+                        </div>
                         {errors.title && (
-                            <span style={{ fontSize: "0.75rem", color: "hsl(var(--destructive))" }}>
-                                {errors.title}
+                            <span className={styles.error}>
+                                <AlertCircle size={12} /> {errors.title}
                             </span>
                         )}
                     </div>
 
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
-                        <label htmlFor="location" style={{ fontSize: "0.85rem", fontWeight: "600" }}>
+                    <div className={styles.field}>
+                        <label htmlFor="location" className={styles.label}>
+                            <MapPin size={14} className={styles.labelIcon} />
                             Ubicación
                         </label>
-                        <input
-                            id="location"
-                            placeholder="Buscar cancha o dirección..."
-                            value={location}
-                            onChange={(e) => setLocation(e.target.value)}
-                            style={{
-                                width: "100%",
-                                height: "3rem",
-                                padding: "0 1rem",
-                                borderRadius: "0.5rem",
-                                border: `1px solid ${errors.location ? "hsl(var(--destructive))" : "var(--border)"}`,
-                                backgroundColor: "var(--input)",
-                                color: "var(--foreground)",
-                                fontSize: "0.9rem",
-                                outline: "none",
-                                boxSizing: "border-box",
-                            }}
-                        />
+                        <div className={`${styles.inputWrap} ${errors.location ? styles.inputWrapError : ''}`}>
+                            <div className={styles.inputIcon}>
+                                <MapPin size={16} />
+                            </div>
+                            <input
+                                id="location"
+                                placeholder="Buscar cancha o dirección..."
+                                value={location}
+                                onChange={(e) => setLocation(e.target.value)}
+                                className={styles.input}
+                            />
+                        </div>
                         {errors.location && (
-                            <span style={{ fontSize: "0.75rem", color: "hsl(var(--destructive))" }}>
-                                {errors.location}
+                            <span className={styles.error}>
+                                <AlertCircle size={12} /> {errors.location}
                             </span>
                         )}
                     </div>
 
-                    {/* FECHA / HORA */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
-                            <label htmlFor="date" style={{ fontSize: "0.85rem", fontWeight: "600" }}>
+                    {/* Fecha y Hora */}
+                    <div className={styles.sectionDivider}>
+                        <span className={styles.sectionLine} />
+                        <span className={styles.sectionLabel}>Fecha y hora</span>
+                        <span className={styles.sectionLine} />
+                    </div>
+
+                    <div className={styles.row}>
+                        <div className={styles.field}>
+                            <label htmlFor="date" className={styles.label}>
+                                <Calendar size={14} className={styles.labelIcon} />
                                 Fecha
                             </label>
-                            <input
-                                type="date"
-                                id="date"
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                style={{
-                                    width: "100%",
-                                    height: "3rem",
-                                    padding: "0 1rem",
-                                    borderRadius: "0.5rem",
-                                    border: `1px solid ${errors.date ? "hsl(var(--destructive))" : "var(--border)"}`,
-                                    backgroundColor: "var(--input)",
-                                    color: "var(--foreground)",
-                                    fontSize: "0.9rem",
-                                    outline: "none",
-                                    boxSizing: "border-box",
-                                }}
-                            />
+                            <div className={`${styles.inputWrap} ${errors.date ? styles.inputWrapError : ''}`}>
+                                <div className={styles.inputIcon}>
+                                    <Calendar size={16} />
+                                </div>
+                                <input
+                                    type="date"
+                                    id="date"
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    className={styles.input}
+                                />
+                            </div>
                             {errors.date && (
-                                <span style={{ fontSize: "0.75rem", color: "hsl(var(--destructive))" }}>
-                                    {errors.date}
+                                <span className={styles.error}>
+                                    <AlertCircle size={12} /> {errors.date}
                                 </span>
                             )}
                         </div>
-
-                        <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
-                            <label htmlFor="time" style={{ fontSize: "0.85rem", fontWeight: "600" }}>
+                        <div className={styles.field}>
+                            <label htmlFor="time" className={styles.label}>
+                                <Clock size={14} className={styles.labelIcon} />
                                 Hora
                             </label>
-                            <input
-                                type="time"
-                                id="time"
-                                value={time}
-                                onChange={(e) => setTime(e.target.value)}
-                                style={{
-                                    width: "100%",
-                                    height: "3rem",
-                                    padding: "0 1rem",
-                                    borderRadius: "0.5rem",
-                                    border: `1px solid ${errors.time ? "hsl(var(--destructive))" : "var(--border)"}`,
-                                    backgroundColor: "var(--input)",
-                                    color: "var(--foreground)",
-                                    fontSize: "0.9rem",
-                                    outline: "none",
-                                    boxSizing: "border-box",
-                                }}
-                            />
+                            <div className={`${styles.inputWrap} ${errors.time ? styles.inputWrapError : ''}`}>
+                                <div className={styles.inputIcon}>
+                                    <Clock size={16} />
+                                </div>
+                                <input
+                                    type="time"
+                                    id="time"
+                                    value={time}
+                                    onChange={(e) => setTime(e.target.value)}
+                                    className={styles.input}
+                                />
+                            </div>
                             {errors.time && (
-                                <span style={{ fontSize: "0.75rem", color: "hsl(var(--destructive))" }}>
-                                    {errors.time}
+                                <span className={styles.error}>
+                                    <AlertCircle size={12} /> {errors.time}
                                 </span>
                             )}
                         </div>
                     </div>
 
-                    {/* JUGADORES / PRECIO */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
-                            <label htmlFor="players" style={{ fontSize: "0.85rem", fontWeight: "600" }}>
+                    {/* Detalles del partido */}
+                    <div className={styles.sectionDivider}>
+                        <span className={styles.sectionLine} />
+                        <span className={styles.sectionLabel}>Detalles</span>
+                        <span className={styles.sectionLine} />
+                    </div>
+
+                    <div className={styles.row}>
+                        <div className={styles.field}>
+                            <label htmlFor="players" className={styles.label}>
+                                <Users size={14} className={styles.labelIcon} />
                                 Jugadores Totales
                             </label>
-                            <input
-                                id="players"
-                                placeholder="10"
-                                type="number"
-                                value={players}
-                                onChange={(e) => setPlayers(e.target.value)}
-                                min={1}
-                                style={{
-                                    width: "100%",
-                                    height: "3rem",
-                                    padding: "0 1rem",
-                                    borderRadius: "0.5rem",
-                                    border: `1px solid ${errors.players ? "hsl(var(--destructive))" : "var(--border)"}`,
-                                    backgroundColor: "var(--input)",
-                                    color: "var(--foreground)",
-                                    fontSize: "0.9rem",
-                                    outline: "none",
-                                    boxSizing: "border-box",
-                                }}
-                            />
+                            <div className={`${styles.inputWrap} ${errors.players ? styles.inputWrapError : ''}`}>
+                                <div className={styles.inputIcon}>
+                                    <Users size={16} />
+                                </div>
+                                <input
+                                    id="players"
+                                    placeholder="10"
+                                    type="number"
+                                    value={players}
+                                    onChange={(e) => setPlayers(e.target.value)}
+                                    min={1}
+                                    className={styles.input}
+                                />
+                            </div>
                             {errors.players && (
-                                <span style={{ fontSize: "0.75rem", color: "hsl(var(--destructive))" }}>
-                                    {errors.players}
+                                <span className={styles.error}>
+                                    <AlertCircle size={12} /> {errors.players}
                                 </span>
                             )}
                         </div>
-
-                        <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
-                            <label htmlFor="price" style={{ fontSize: "0.85rem", fontWeight: "600" }}>
+                        <div className={styles.field}>
+                            <label htmlFor="price" className={styles.label}>
+                                <DollarSign size={14} className={styles.labelIcon} />
                                 Precio por Persona
                             </label>
-                            <input
-                                id="price"
-                                placeholder="$2.000"
-                                type="text"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                style={{
-                                    width: "100%",
-                                    height: "3rem",
-                                    padding: "0 1rem",
-                                    borderRadius: "0.5rem",
-                                    border: "1px solid var(--border)",
-                                    backgroundColor: "var(--input)",
-                                    color: "var(--foreground)",
-                                    fontSize: "0.9rem",
-                                    outline: "none",
-                                    boxSizing: "border-box",
-                                }}
-                            />
+                            <div className={styles.inputWrap}>
+                                <div className={styles.inputIcon}>
+                                    <DollarSign size={16} />
+                                </div>
+                                <input
+                                    id="price"
+                                    placeholder="$2.000"
+                                    type="text"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    className={styles.input}
+                                />
+                            </div>
                         </div>
                     </div>
 
-                    {/* NIVEL */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <label style={{ fontSize: "0.85rem", fontWeight: "600" }}>Nivel</label>
+                    <div className={styles.field}>
+                        <label className={styles.label}>
+                            <Trophy size={14} className={styles.labelIcon} />
+                            Nivel
+                        </label>
+                        <div className={styles.chipGroup}>
+                            {(["Recreativo", "Intermedio", "Competitivo"] as LevelOption[]).map((option) => (
+                                <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => setLevel(option)}
+                                    className={`${styles.chip} ${level === option ? styles.chipActive : ''}`}
+                                >
+                                    {option}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
 
-                        <div style={{ display: "flex", gap: "0.5rem" }}>
-                            {(["Recreativo", "Intermedio", "Competitivo"] as LevelOption[]).map((option) => {
-                                const isActive = level === option;
-                                return (
-                                    <button
-                                        key={option}
-                                        type="button"
-                                        onClick={() => setLevel(option)}
-                                        style={{
-                                            flex: 1,
-                                            padding: "0.75rem 0",
-                                            borderRadius: "0.5rem",
-                                            border: isActive ? "1px solid hsl(var(--primary))" : "1px solid var(--border)",
-                                            backgroundColor: isActive ? "hsl(var(--primary))" : "hsl(var(--card))",
-                                            color: isActive ? "white" : "var(--foreground)",
-                                            fontSize: "0.85rem",
-                                            fontWeight: "600",
-                                            cursor: "pointer",
-                                            transition: "all .2s",
+                    {/* Imagen de la cancha */}
+                    <div className={styles.sectionDivider}>
+                        <span className={styles.sectionLine} />
+                        <span className={styles.sectionLabel}>Imagen</span>
+                        <span className={styles.sectionLine} />
+                    </div>
+
+                    <div className={styles.field}>
+                        <label className={styles.label}>
+                            <Image size={14} className={styles.labelIcon} />
+                            URL de imagen de la cancha
+                        </label>
+                        <div className={styles.imageSection}>
+                            <div className={styles.inputWrap}>
+                                <div className={styles.inputIcon}>
+                                    <Image size={16} />
+                                </div>
+                                <input
+                                    placeholder="https://ejemplo.com/cancha.jpg"
+                                    type="url"
+                                    value={imageUrl}
+                                    onChange={(e) => setImageUrl(e.target.value)}
+                                    className={styles.input}
+                                />
+                            </div>
+                            <div className={styles.imagePreview}>
+                                {imageUrl ? (
+                                    <img
+                                        src={imageUrl}
+                                        alt="Vista previa"
+                                        onError={(e) => {
+                                            e.currentTarget.style.display = 'none';
+                                            (e.currentTarget.nextElementSibling as HTMLElement)?.style.removeProperty('display');
                                         }}
-                                    >
-                                        {option}
-                                    </button>
-                                );
-                            })}
+                                    />
+                                ) : null}
+                                <div className={styles.imagePlaceholder} style={{ display: imageUrl ? 'none' : 'flex' }}>
+                                    <Image size={24} className={styles.imagePlaceholderIcon} />
+                                    <span>La imagen se previsualizará aquí</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* BOTÓN PRINCIPAL */}
-                    <button
-                        type="submit"
-                        className="btn btn-primary"
-                        disabled={isSubmitting}
-                        style={{
-                            marginTop: "1rem",
-                            width: "100%",
-                            opacity: isSubmitting ? 0.85 : 1,
-                        }}
-                    >
+                    <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+                        <Shield size={18} />
                         {isSubmitting ? "Publicando..." : "Publicar Partido"}
                     </button>
-
                 </form>
             </div>
         </div>

@@ -1,0 +1,319 @@
+/* Profile Cover / Banner */
+.bannerWrap {
+    position: relative;
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.bannerInner {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 0 0 var(--radius-card) var(--radius-card);
+    overflow: hidden;
+}
+
+.bannerBg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bannerOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(24, 201, 100, 0.15) 0%,
+        rgba(16, 24, 39, 0.5) 50%,
+        hsl(var(--background)) 100%
+    );
+}
+
+.bannerPattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 20px,
+            hsl(var(--primary) / 0.3) 20px,
+            hsl(var(--primary) / 0.3) 21px
+        );
+}
+
+/* Avatar positioned below the banner */
+.avatarWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: -3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.avatar {
+    width: 104px;
+    height: 104px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 4px solid hsl(var(--background));
+    box-shadow: var(--shadow-soft);
+}
+
+/* Edit button floated top-right */
+.editBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.editBtn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+/* Profile Info Section */
+.profileInfo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.profileName {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.15rem;
+}
+
+.profileMeta {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.starIcon {
+    color: hsl(var(--gold));
+}
+
+/* Stats Grid Premium */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-16);
+    margin-bottom: var(--space-24);
+}
+
+.statCard {
+    background: linear-gradient(135deg, var(--card-bg), var(--card-elevated));
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-input);
+    padding: var(--space-12) var(--space-8);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.statCard::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), hsl(142 70% 30%));
+}
+
+.statValue {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+    line-height: 1.1;
+}
+
+.statLabel {
+    font-size: var(--text-caption);
+    color: var(--text-secondary);
+    margin-top: 0.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+}
+
+/* Badges / Achievements Section */
+.section {
+    margin-bottom: var(--space-24);
+}
+
+.sectionTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sectionTitleIcon {
+    color: hsl(var(--gold));
+}
+
+.badgeGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-btn);
+    background: linear-gradient(135deg, rgba(24, 201, 100, 0.12), rgba(24, 201, 100, 0.05));
+    color: var(--color-primary);
+    border: 1px solid rgba(24, 201, 100, 0.15);
+}
+
+.badgeIcon {
+    width: 14px;
+    height: 14px;
+}
+
+/* Bio */
+.bioSection {
+    background: var(--card-bg);
+    border-radius: var(--radius-card);
+    padding: var(--space-16) var(--space-20);
+    border: 1px solid var(--border-card);
+    margin-bottom: var(--space-24);
+}
+
+.bioText {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Match History Cards */
+.matchCard {
+    background: var(--card-bg);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-card);
+    padding: var(--space-16);
+    transition: all 0.15s;
+}
+
+.matchCard:hover {
+    border-color: rgba(24, 201, 100, 0.3);
+}
+
+.matchCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.matchTitle {
+    font-weight: 600;
+    font-size: var(--text-base);
+}
+
+.matchDate {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+}
+
+.matchMeta {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.matchResult {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+/* Review Cards */
+.reviewCard {
+    background: var(--card-bg);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-card);
+    padding: var(--space-16);
+}
+
+.reviewHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.reviewAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.reviewUser {
+    flex: 1;
+}
+
+.reviewName {
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+.reviewStars {
+    display: flex;
+    gap: 1px;
+}
+
+.reviewStar {
+    width: 14px;
+    height: 14px;
+}
+
+.reviewDate {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+}
+
+.reviewComment {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+/* Actions Section */
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 6rem;
+    margin-top: 2rem;
+}
