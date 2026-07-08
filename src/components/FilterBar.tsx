@@ -49,9 +49,9 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
                         gap: '0.5rem',
                         padding: '0.5rem 1rem',
                         borderRadius: '2rem',
-                        backgroundColor: isOpen || activeFiltersCount > 0 ? 'hsl(var(--primary))' : 'hsl(var(--card))',
-                        color: isOpen || activeFiltersCount > 0 ? 'white' : 'var(--foreground)',
-                        border: '1px solid var(--border)',
+                        backgroundColor: isOpen || activeFiltersCount > 0 ? 'var(--accent)' : 'var(--bg-card)',
+                        color: isOpen || activeFiltersCount > 0 ? 'white' : 'var(--text-primary)',
+                        border: '1px solid var(--border-subtle)',
                         whiteSpace: 'nowrap',
                         fontSize: '0.875rem',
                         fontWeight: '600',
@@ -71,9 +71,9 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
                         style={{
                             padding: '0.5rem 1rem',
                             borderRadius: '2rem',
-                            backgroundColor: filters.level === level ? 'hsl(var(--primary) / 0.1)' : 'transparent',
-                            color: filters.level === level ? 'hsl(var(--primary))' : 'var(--muted-foreground)',
-                            border: `1px solid ${filters.level === level ? 'hsl(var(--primary))' : 'var(--border)'}`,
+                            backgroundColor: filters.level === level ? 'var(--accent-dim)' : 'transparent',
+                            color: filters.level === level ? 'var(--accent)' : 'var(--text-secondary)',
+                            border: `1px solid ${filters.level === level ? 'var(--accent)' : 'var(--border-subtle)'}`,
                             whiteSpace: 'nowrap',
                             fontSize: '0.875rem',
                             cursor: 'pointer',
@@ -90,9 +90,9 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
                 <div style={{
                     marginTop: '0.5rem',
                     padding: '1rem',
-                    backgroundColor: 'hsl(var(--card))',
-                    borderRadius: 'var(--radius)',
-                    border: '1px solid var(--border)',
+                    backgroundColor: 'var(--bg-card)',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-subtle)',
                     animation: 'fadeIn 0.2s ease-out'
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -100,7 +100,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
                         {activeFiltersCount > 0 && (
                             <button
                                 onClick={clearFilters}
-                                style={{ fontSize: '0.8rem', color: 'hsl(var(--destructive))', background: 'none', border: 'none', cursor: 'pointer' }}
+                                style={{ fontSize: '0.8rem', color: 'var(--error)', background: 'none', border: 'none', cursor: 'pointer' }}
                             >
                                 Limpiar todo
                             </button>
@@ -122,9 +122,9 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
                                             gap: '0.25rem',
                                             padding: '0.4rem 0.8rem',
                                             borderRadius: '0.5rem',
-                                            backgroundColor: filters.price === price ? 'hsl(var(--primary))' : 'hsl(var(--background))',
-                                            color: filters.price === price ? 'white' : 'var(--foreground)',
-                                            border: '1px solid var(--border)',
+                                            backgroundColor: filters.price === price ? 'var(--accent)' : 'var(--bg-base)',
+                                            color: filters.price === price ? 'white' : 'var(--text-primary)',
+                                            border: '1px solid var(--border-subtle)',
                                             fontSize: '0.8rem',
                                             cursor: 'pointer'
                                         }}
@@ -150,9 +150,9 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
                                             gap: '0.25rem',
                                             padding: '0.4rem 0.8rem',
                                             borderRadius: '0.5rem',
-                                            backgroundColor: filters.date === date ? 'hsl(var(--primary))' : 'hsl(var(--background))',
-                                            color: filters.date === date ? 'white' : 'var(--foreground)',
-                                            border: '1px solid var(--border)',
+                                            backgroundColor: filters.date === date ? 'var(--accent)' : 'var(--bg-base)',
+                                            color: filters.date === date ? 'white' : 'var(--text-primary)',
+                                            border: '1px solid var(--border-subtle)',
                                             fontSize: '0.8rem',
                                             cursor: 'pointer'
                                         }}

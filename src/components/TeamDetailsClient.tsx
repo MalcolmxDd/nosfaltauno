@@ -6,6 +6,8 @@ import { MOCK_TEAMS } from '@/data/mocks';
 import { getAllMatches } from '@/data/store';
 import StatsGrid from '@/components/ui/StatsGrid';
 import PlayerListItem from '@/components/ui/PlayerListItem';
+import styles from '@/app/teams/TeamDetails.module.css';
+import { ArrowLeft, UserPlus, LogOut } from 'lucide-react';
 
 interface TeamDetailsClientProps {
     teamId: string;
@@ -17,12 +19,13 @@ export default function TeamDetailsClient({ teamId }: TeamDetailsClientProps) {
 
     if (!team) {
         return (
-            <div className="container pt-4">
-                <Link href="/teams" style={{ color: 'hsl(var(--primary))', fontSize: '0.875rem', display: 'block', marginBottom: '1rem' }}>
-                    ⬅ Volver
+            <div className={`container ${styles.notFound}`}>
+                <Link href="/teams" className={styles.backLink}>
+                    <ArrowLeft size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '0.25rem' }} />
+                    Volver
                 </Link>
-                <h1 className="text-xl font-bold">Equipo no encontrado</h1>
-                <p className="text-sm text-muted mt-2">No pudimos encontrar el equipo que estás buscando.</p>
+                <h1 className={styles.notFoundTitle}>Equipo no encontrado</h1>
+                <p className={styles.notFoundDesc}>No pudimos encontrar el equipo que estás buscando.</p>
             </div>
         );
     }
@@ -30,20 +33,21 @@ export default function TeamDetailsClient({ teamId }: TeamDetailsClientProps) {
     const teamMatches = getAllMatches().filter((m: any) => m.id === teamId || m.title.toLowerCase().includes(team.name.toLowerCase()));
 
     return (
-        <div className="container">
-            <div className="pt-4 mb-4">
-                <Link href="/teams" style={{ color: 'hsl(var(--primary))', fontSize: '0.875rem', display: 'block', marginBottom: '1rem' }}>
-                    ⬅ Volver
+        <div className={`container ${styles.page}`}>
+            <div className="pt-4">
+                <Link href="/teams" className={styles.backLink}>
+                    <ArrowLeft size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '0.25rem' }} />
+                    Volver
                 </Link>
-                <h1 className="text-2xl font-bold mb-1">{team.name}</h1>
-                <p className="text-sm text-muted">{team.description}</p>
-                <div className="flex gap-3 mt-4">
+                <h1 className={styles.teamName}>{team.name}</h1>
+                <p className={styles.teamDesc}>{team.description}</p>
+
+                <div className={styles.actions}>
                     <button
                         onClick={() => setIsMember(!isMember)}
-                        className={`btn ${isMember ? 'btn-ghost' : 'btn-primary'}`}
-                        style={{ minWidth: '120px' }}
+                        className={isMember ? styles.leaveBtn : styles.joinBtn}
                     >
-                        {isMember ? 'Dejar el Equipo' : 'Unirse al Equipo'}
+                        {isMember ? <><LogOut size={16} /> Dejar</> : <><UserPlus size={16} /> Unirse</>}
                     </button>
                 </div>
             </div>
@@ -58,9 +62,9 @@ export default function TeamDetailsClient({ teamId }: TeamDetailsClientProps) {
             />
 
             {/* Members */}
-            <div className="mb-8">
-                <h2 className="text-lg font-bold mb-4">Miembros ({team.members.length})</h2>
-                <div className="flex flex-col gap-2">
+            <div className={styles.section}>
+                <h2 className={styles.sectionTitle}>Miembros ({team.members.length})</h2>
+                <div className={styles.membersList}>
                     {team.members.map((member) => (
                         <PlayerListItem
                             key={member.id}
@@ -73,17 +77,17 @@ export default function TeamDetailsClient({ teamId }: TeamDetailsClientProps) {
 
             {/* Recent Matches */}
             {teamMatches.length > 0 && (
-                <div className="mb-8">
-                    <h2 className="text-lg font-bold mb-4">Partidos Recientes</h2>
-                    <div className="flex flex-col gap-3">
+                <div className={styles.section}>
+                    <h2 className={styles.sectionTitle}>Partidos Recientes</h2>
+                    <div className={styles.matchesList}>
                         {teamMatches.map((match) => (
                             <Link
                                 key={match.id}
                                 href={`/match/${match.id}`}
-                                className="bg-card rounded-md p-4 block"
+                                className={styles.matchCard}
                             >
-                                <h3 className="font-semibold mb-1">{match.title}</h3>
-                                <p className="text-sm text-muted">{match.location} • {match.date}</p>
+                                <h3 className={styles.matchTitle}>{match.title}</h3>
+                                <p className={styles.matchMeta}>{match.location} • {match.date}</p>
                             </Link>
                         ))}
                     </div>

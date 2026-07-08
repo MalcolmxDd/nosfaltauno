@@ -11,7 +11,7 @@
 }
 
 .item:hover {
-  background-color: hsl(var(--muted));
+  background-color: var(--bg-elevated);
 }
 
 .avatar {
@@ -34,7 +34,7 @@
 
 .position {
   font-size: 0.8rem;
-  color: hsl(var(--muted-foreground));
+  color: var(--text-secondary);
 }
 
 .badge {

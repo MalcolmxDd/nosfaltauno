@@ -1,14 +1,15 @@
 "use client";
 
-import { Suspense, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MatchCard from '@/components/MatchCard';
 import FilterBar, { FilterState } from '@/components/FilterBar';
 import dynamic from 'next/dynamic';
 import '@/components/DynamicMap.css';
 import { getAllMatches } from '@/data/store';
+import { MOCK_MATCHES } from '@/data/mocks';
 import EmptyState from '@/components/ui/EmptyState';
-import { SearchX, Footprints } from 'lucide-react';
+import { SearchX } from 'lucide-react';
 import styles from './Feed.module.css';
 
 const DynamicMap = dynamic(() => import('@/components/DynamicMap'), { ssr: false });
@@ -23,8 +24,19 @@ function FeedContent() {
         date: null
     });
 
+    // SSR-safe: initial render uses only MOCK_MATCHES (deterministic on
+    // server & client), then useEffect adds user-created matches from
+    // localStorage after hydration to avoid hydration mismatch
+    const [matches, setMatches] = useState(() =>
+        MOCK_MATCHES.filter((m: any) => m.isJoined)
+    );
+    useEffect(() => {
+        const all = getAllMatches().filter((m: any) => m.isJoined);
+        setMatches(all);
+    }, []);
+
     const filteredMatches = useMemo(() => {
-        return getAllMatches().filter((match: any) => {
+        return matches.filter((match: any) => {
             if (!match.isJoined) return false;
             if (filters.level && match.level !== filters.level) return false;
             if (filters.price) {
@@ -38,7 +50,7 @@ function FeedContent() {
             }
             return true;
         });
-    }, [filters]);
+    }, [filters, matches]);
 
     const isEmpty = filteredMatches.length === 0;
 

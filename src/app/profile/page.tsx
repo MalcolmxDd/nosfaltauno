@@ -7,6 +7,7 @@ import { MOCK_USERS, MOCK_REVIEWS, MOCK_PAST_MATCHES } from '@/data/mocks';
 import { Trophy, Calendar, Users, Settings, Star, LogOut, Medal, Edit3 } from 'lucide-react';
 import { useToast } from '@/contexts/ToastContext';
 import TabBar from '@/components/ui/TabBar';
+import StatsGrid from '@/components/ui/StatsGrid';
 import EmptyState from '@/components/ui/EmptyState';
 import styles from './Profile.module.css';
 
@@ -58,20 +59,14 @@ export default function ProfilePage() {
             </div>
 
             {/* Premium Stats */}
-            <div className={styles.statsGrid}>
-                <div className={styles.statCard}>
-                    <div className={styles.statValue}>{user.matchesPlayed}</div>
-                    <div className={styles.statLabel}>Partidos</div>
-                </div>
-                <div className={styles.statCard}>
-                    <div className={styles.statValue}>{user.matchesHosted}</div>
-                    <div className={styles.statLabel}>Organizados</div>
-                </div>
-                <div className={styles.statCard}>
-                    <div className={styles.statValue}>{user.attendanceRate}%</div>
-                    <div className={styles.statLabel}>Asistencia</div>
-                </div>
-            </div>
+            <StatsGrid
+                stats={[
+                    { label: 'Partidos', value: user.matchesPlayed },
+                    { label: 'Organizados', value: user.matchesHosted },
+                    { label: 'Asistencia', value: `${user.attendanceRate}%` },
+                ]}
+                columns={3}
+            />
 
             {/* Badges / Achievements */}
             {user.badges && user.badges.length > 0 && (
@@ -160,8 +155,8 @@ export default function ProfilePage() {
                                                 <Star
                                                     key={i}
                                                     size={14}
-                                                    fill={i < review.rating ? 'hsl(var(--gold))' : 'transparent'}
-                                                    color={i < review.rating ? 'hsl(var(--gold))' : 'hsl(var(--muted-foreground))'}
+                                                    fill={i < review.rating ? 'currentColor' : 'transparent'}
+                                                    color={i < review.rating ? 'var(--gold)' : 'var(--text-secondary)'}
                                                 />
                                             ))}
                                         </div>
@@ -177,14 +172,17 @@ export default function ProfilePage() {
 
             {/* Actions */}
             <div className={styles.actions}>
-                <Link href="/my-matches" className="btn btn-ghost action-btn">
-                    <Calendar size={18} /> Mis Partidos
+                <Link href="/my-matches" className={styles.actionBtn}>
+                    <Calendar size={18} className={styles.actionBtnIcon} />
+                    Mis Partidos
                 </Link>
-                <Link href="/teams" className="btn btn-ghost action-btn">
-                    <Users size={18} /> Equipos
+                <Link href="/teams" className={styles.actionBtn}>
+                    <Users size={18} className={styles.actionBtnIcon} />
+                    Equipos
                 </Link>
-                <Link href="/profile/edit" className="btn btn-ghost action-btn">
-                    <Settings size={18} /> Editar Perfil
+                <Link href="/profile/edit" className={styles.actionBtn}>
+                    <Settings size={18} className={styles.actionBtnIcon} />
+                    Editar Perfil
                 </Link>
                 <button
                     onClick={() => {
@@ -193,10 +191,11 @@ export default function ProfilePage() {
                             router.push('/');
                         }
                     }}
-                    className="btn btn-ghost action-btn"
-                    style={{ color: 'hsl(var(--destructive))' }}
+                    className={styles.actionBtn}
+                    style={{ color: 'var(--error)', borderColor: 'rgba(255, 59, 59, 0.2)' }}
                 >
-                    <LogOut size={18} /> Cerrar Sesión
+                    <LogOut size={18} />
+                    Cerrar Sesión
                 </button>
             </div>
         </div>

@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   height: 4.5rem;
-  background: linear-gradient(0deg, hsl(var(--card) / 0.98), hsl(var(--card) / 0.75));
+  background: linear-gradient(0deg, rgba(26,26,40,0.98), rgba(20,20,31,0.92));
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-top: 1px solid var(--border-subtle);
@@ -16,14 +16,13 @@
 }
 
 .link {
-  color: hsl(var(--muted-foreground));
+  color: var(--text-secondary);
   font-size: 0.65rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.2rem;
-  transition: all 0.2s;
-  transform: scale(1);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   padding: 0.4rem 0.6rem;
   text-decoration: none;
   position: relative;
@@ -31,36 +30,43 @@
 }
 
 .link:hover {
-  color: hsl(var(--foreground));
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.link:active {
+  transform: scale(0.95);
 }
 
 .linkActive {
-  color: hsl(var(--primary));
+  color: var(--accent);
+}
+
+.linkActive::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 2.5px;
+  border-radius: 0 0 2px 2px;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(255, 107, 26, 0.4);
 }
 
 .linkActive .label {
-  font-weight: 600;
-  color: hsl(var(--primary));
-}
-
-.dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: hsl(var(--primary));
-  margin-top: 0.05rem;
-  box-shadow: 0 0 6px hsl(var(--primary-glow));
-  animation: dotPulse 2s ease-in-out infinite;
-}
-
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  font-weight: 700;
+  color: var(--accent);
 }
 
 .label {
   font-weight: 500;
   transition: all 0.2s;
+}
+
+.linkActive svg {
+  filter: drop-shadow(0 0 6px rgba(255, 107, 26, 0.3));
 }
 
 /* FAB Center Button */
@@ -77,14 +83,14 @@
   height: 3.5rem;
   border-radius: var(--radius-full);
   border: none;
-  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover-hsl)));
+  background: var(--grad-cta);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.25s;
-  box-shadow: var(--shadow-glow);
+  box-shadow: var(--shadow-accent-glow);
   position: relative;
   overflow: hidden;
   text-decoration: none;
@@ -94,7 +100,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, transparent 30%, hsl(0 0% 100% / 0.12) 50%, transparent 70%);
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.14) 50%, transparent 70%);
   transition: transform 0.5s;
   transform: translateX(-100%);
 }
@@ -105,7 +111,7 @@
 
 .fab:hover {
   transform: scale(1.08) translateY(-2px);
-  box-shadow: 0 6px 28px hsl(var(--primary-glow));
+  box-shadow: 0 6px 28px rgba(255, 107, 26, 0.35);
 }
 
 .fab:active {
@@ -113,8 +119,8 @@
 }
 
 .fabActive {
-  background: linear-gradient(135deg, hsl(var(--primary-hover-hsl)), hsl(var(--primary)));
-  box-shadow: var(--shadow-glow);
+  background: linear-gradient(135deg, #FF8C42, #FF6B1A);
+  box-shadow: var(--shadow-accent-glow);
 }
 
 .fabActiveDot {

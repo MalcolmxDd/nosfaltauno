@@ -2,13 +2,8 @@
 
 import { Bell, Target, MessageCircle, Sparkles } from 'lucide-react';
 import EmptyState from '@/components/ui/EmptyState';
+import listStyles from '@/components/ui/ListPage.module.css';
 import styles from './Notifications.module.css';
-
-const notificationIcons: Record<string, 'match' | 'message' | 'system'> = {
-    match: 'match',
-    message: 'message',
-    system: 'system',
-};
 
 const notifications = [
     { id: 1, type: 'match' as const, title: '¡Partido Confirmado!', message: 'Te has unido a "Fútbol 5 - Canchas del Sur".', time: 'Hace 5 min', read: false },
@@ -24,25 +19,25 @@ const iconMap = {
 
 export default function NotificationsPage() {
     return (
-        <div className={`container ${styles.page}`}>
-            <header className={styles.header}>
-                <h1 className={styles.headerTitle}>Notificaciones</h1>
+        <div className={`container ${listStyles.page}`}>
+            <header className={listStyles.header}>
+                <h1 className={listStyles.headerTitle}>Notificaciones</h1>
             </header>
 
             {notifications.length > 0 ? (
-                <div className={styles.list}>
+                <div className={listStyles.list}>
                     {notifications.map((notif) => {
                         const Icon = iconMap[notif.type];
                         const iconClass = notif.type === 'match' ? styles.iconMatch
                             : notif.type === 'message' ? styles.iconMessage
                             : styles.iconSystem;
                         return (
-                            <div key={notif.id} className={`${styles.item} ${!notif.read ? styles.itemUnread : ''}`}>
+                            <div key={notif.id} className={`${listStyles.item} ${!notif.read ? styles.itemUnread : ''}`}>
                                 {!notif.read && <span className={styles.unreadDot} />}
                                 <div className={`${styles.iconWrap} ${iconClass}`}>
-                                    <Icon size={18} />
+                                    <Icon size={16} />
                                 </div>
-                                <div className={styles.content}>
+                                <div className={listStyles.content}>
                                     <h3 className={styles.title}>{notif.title}</h3>
                                     <p className={styles.message}>{notif.message}</p>
                                     <span className={styles.time}>{notif.time}</span>

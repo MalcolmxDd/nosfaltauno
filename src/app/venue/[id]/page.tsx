@@ -109,8 +109,8 @@ export default async function VenuePage({ params }: { params: Promise<{ id: stri
                                 <div className={styles.reviewStars}>
                                     {[...Array(5)].map((_, i) => (
                                         <Star key={i} size={14}
-                                            fill={i < review.rating ? 'hsl(var(--primary))' : 'transparent'}
-                                            color={i < review.rating ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))'}
+                                            fill={i < review.rating ? 'var(--accent)' : 'transparent'}
+                                            color={i < review.rating ? 'var(--accent)' : 'var(--text-secondary)'}
                                         />
                                     ))}
                                 </div>

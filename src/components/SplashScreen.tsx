@@ -36,22 +36,22 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
             {/* Floating geometric particles */}
             <div className="particles">
                 <svg className="particle particle-1" width="24" height="24" viewBox="0 0 24 24">
-                    <polygon points="12,2 22,8.5 22,21.5 2,21.5 2,8.5" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                    <polygon points="12,2 22,8.5 22,21.5 2,21.5 2,8.5" fill="none" stroke="#FF6B1A" strokeWidth="1" />
                 </svg>
                 <svg className="particle particle-2" width="16" height="16" viewBox="0 0 16 16">
-                    <circle cx="8" cy="8" r="6" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+                    <circle cx="8" cy="8" r="6" fill="none" stroke="#FFD700" strokeWidth="1" />
                 </svg>
                 <svg className="particle particle-3" width="20" height="20" viewBox="0 0 20 20">
-                    <polygon points="10,2 18,7 16,16 4,16 2,7" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                    <polygon points="10,2 18,7 16,16 4,16 2,7" fill="none" stroke="#FF6B1A" strokeWidth="1" />
                 </svg>
                 <svg className="particle particle-4" width="14" height="14" viewBox="0 0 14 14">
-                    <rect x="1" y="1" width="12" height="12" rx="3" fill="none" stroke="hsl(var(--gold))" strokeWidth="1" />
+                    <rect x="1" y="1" width="12" height="12" rx="3" fill="none" stroke="#FFD700" strokeWidth="1" />
                 </svg>
                 <svg className="particle particle-5" width="10" height="10" viewBox="0 0 10 10">
-                    <circle cx="5" cy="5" r="4" fill="hsl(var(--primary) / 0.15)" />
+                    <circle cx="5" cy="5" r="4" fill="rgba(255, 107, 26, 0.15)" />
                 </svg>
                 <svg className="particle particle-6" width="18" height="18" viewBox="0 0 18 18">
-                    <polygon points="9,1 17,5 17,13 9,17 1,13 1,5" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
+                    <polygon points="9,1 17,5 17,13 9,17 1,13 1,5" fill="none" stroke="#FF6B1A" strokeWidth="1" />
                 </svg>
             </div>
 
